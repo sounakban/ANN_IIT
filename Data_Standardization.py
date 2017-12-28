@@ -31,11 +31,10 @@ def split(doc_vectors, trig_vectors, tags, posit_window_len, sent_len):
 	trig_split = []
 	tag_split = []
 	posit_vecs = []
-	if len(doc_vectors) < sent_len:
-		while len(doc_vectors) < sent_len:
-			doc_vectors.append(0)
-			trig_vectors.append(0)
-			tags.append("Empty")
+	while len(doc_vectors) < sent_len:
+		doc_vectors.append(0)
+		trig_vectors.append(0)
+		tags.append("Empty")
 	doc_len = len(doc_vectors)
 	for i in range(doc_len):
 		#print("Doc len , i : ", doc_len, i)

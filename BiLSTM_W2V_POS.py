@@ -33,7 +33,7 @@ print("Max Len : ", maxLen)
 # Sequence padding
 trainX = pad_sequences(trainX, maxlen=maxLen, value=0.)
 #Converting labels to binary vectors
-trainY = pad_sequences(trainY, maxlen=maxLen, value=0.)
+trainY = pad_sequences(trainY, maxlen=2, value=0.)
 embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 
 # Network building
@@ -47,9 +47,10 @@ net = fully_connected(net, 2, activation='softmax')
 net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005)
 print("Done")
 
-"""
+
 testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
+
 
 # Training
 model = tflearn.DNN(net, clip_gradients=0., tensorboard_verbose=2)
@@ -60,7 +61,7 @@ model.fit(trainX, trainY, n_epoch=10, validation_set=0.1, show_metric=True, batc
 print( model.evaluate(testX, testY) )
 predictions = model.predict(testX)
 
-
+"""
 ##Calculate F1 Score
 tp = 0
 tn = 0

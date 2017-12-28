@@ -2,7 +2,7 @@
 
 class Embeddings:
 
-	def __init__(self):
+	def __init__(self, sent_len = 10):
 		import gensim
 		self.model = gensim.models.KeyedVectors.load_word2vec_format('../Resources/GoogleNews-vectors-negative300.bin', binary=True)
 		self.doc_vectors = []
@@ -12,9 +12,10 @@ class Embeddings:
 		self.maxSize = 0
 		self.POS_labels = []
 		#To keep the 0th element an empty vector [becasuse of the padded variables]
-		#self.POS_labels.append(["Empty"])
+		self.POS_labels.append(["."])
 		self.num_of_words = 1	#0 is reserved for unknown words
 		self.word2vec_Map = {}
+		self.sent_len = sent_len
 
 	def GoogleVecs_POS_triggerVecs(self, corpus, trigger_list):
 
@@ -36,8 +37,9 @@ class Embeddings:
 			trig = tokenizer.tokenize(trigger_list[doc_num])
 			trig = [wordnet_lemmatizer.lemmatize(t) for t in trig]
 			tokens = tokenizer.tokenize(corpus[doc_num])
-			tokens = [word for word in tokens if not word in stop_words]
-			tokens = [wordnet_lemmatizer.lemmatize(word) for word in tokens]
+			tokens = [wordnet_lemmatizer.lemmatize(word) for word in tokens if not word in stop_words]
+			while len(tokens) < self.sent_len:
+				tokens.append(".")
 			tags = pos_tag(tokens)
 			tags = [x[1] for x in tags]
 
