@@ -44,35 +44,6 @@ class processed_data:
 		doc_vec, maxLen, vocabSize, POS_labels = model_generator.create_lexicon(docs)
 		trig_vec = model_generator.get_triggerVec(triggers)
 
-		"""
-		for trig in range(len(triggers)):
-		if 'sickened w' == triggers[trig]:
-		print(str(trig)+" : "+triggers[trigor word in tokens:])
-		print(str(trig)+" : "+docs[trig])
-		"""
-
-		"""
-		print('###############################################################################################')
-		print(docs[10])
-		print(triggers[10])
-		print(new[10])
-		print(new2[10])
-		print(len(new[10]))
-		print(len(new2[10]))
-		print('###############################################################################################')
-		print(docs[16])
-		print(triggers[16])
-		print(new[16])
-		print(new2[16])
-		print(len(new[16]))
-		print(len(new2[16]))
-		print('###############################################################################################')
-		print(len(docs))
-		print(len(triggers))
-		print(len(evType))
-		print('###############################################################################################')
-		"""
-
 		print("Document & Trigger modelling complete")
 		return (doc_vec, trig_vec, maxLen, vocabSize, POS_labels)
 
@@ -82,12 +53,11 @@ class processed_data:
 		from Load_Embedings import Embeddings
 		model_generator = Embeddings()
 
-		doc_vec, embeddings, trig_vec, maxLen, POS_labels = model_generator.GoogleVecs_POS_triggerVecs(docs, triggers)
-		#trig_vec = model_generator.get_triggerVec(triggers)
+		doc_vec, embeddings, trig_vec, maxLen, POS_labels, position_vectors = model_generator.GoogleVecs_POS_triggerVecs(docs, triggers)
 		del model_generator
 
 		print("Document & Trigger modelling complete")
-		return (doc_vec, embeddings, trig_vec, maxLen, POS_labels)
+		return (doc_vec, embeddings, trig_vec, maxLen, POS_labels, position_vectors)
 
 
 	def getSplit_DocTrigger(self):

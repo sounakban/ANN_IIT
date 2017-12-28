@@ -12,7 +12,7 @@ class Embeddings:
 		self.maxSize = 0
 		self.POS_labels = []
 		#To keep the 0th element an empty vector [becasuse of the padded variables]
-		self.POS_labels.append(["Empty"])
+		#self.POS_labels.append(["Empty"])
 		self.num_of_words = 1	#0 is reserved for unknown words
 		self.word2vec_Map = {}
 
@@ -31,6 +31,7 @@ class Embeddings:
 		from difflib import get_close_matches
 
 		trig_vectors = []
+		position_vectors = []
 		for doc_num in range(len(corpus)):
 			trig = tokenizer.tokenize(trigger_list[doc_num])
 			trig = [wordnet_lemmatizer.lemmatize(t) for t in trig]
@@ -60,18 +61,21 @@ class Embeddings:
 					else:
 						trig_temp.append(0)
 
-			if len(doc_temp) > self.maxSize:
-				self.maxSize = len(doc_temp)
+			#if len(doc_temp) > self.maxSize:
+				#self.maxSize = len(doc_temp)
 
 			#self.doc_vectors.append(doc_temp)
 			#trig_vectors.append(trig_temp)
 
-			doc_temp, trig_temp, tags = oneHot_to_standard(doc_temp, trig_temp, tags)
+			doc_temp, trig_temp, _, posits = oneHot_to_standard(doc_temp, trig_temp, tags)
+			if len(doc_temp[0]) > self.maxSize:
+				self.maxSize = len(doc_temp[0])
 			self.doc_vectors.extend(doc_temp)
 			trig_vectors.extend(trig_temp)
-			self.POS_labels.extend(tags)
+			position_vectors.extend(posits)
+			self.POS_labels.append(tags)
 
 
 		del self.model
 
-		return (self.doc_vectors, self.embeddings, trig_vectors, self.maxSize, self.POS_labels)
+		return (self.doc_vectors, self.embeddings, trig_vectors, self.maxSize, self.POS_labels, position_vectors)

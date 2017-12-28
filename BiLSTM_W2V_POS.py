@@ -18,9 +18,15 @@ from tflearn.layers.recurrent import bidirectional_rnn, BasicLSTMCell
 from tflearn.layers.estimator import regression
 
 #Get data
-trainX, embeddings, trainY, maxLen, POS_labels = data.get_Data_Embeddings()
+trainX, embeddings, trainY, maxLen, POS_labels, position_vectors = data.get_Data_Embeddings()
 POS_vectors, _ = labelMatrix2OneHot(POS_labels)
 del data
+print("TrainX : ", len(trainX))
+print("TrainY : ", len(trainY))
+print("Embd : ", len(embeddings))
+print("POS : ", len(POS_labels))
+print("POSit  : ", len(position_vectors))
+print("Max Len : ", maxLen)
 
 
 # Data preprocessing
@@ -37,7 +43,7 @@ net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), t
 print(net.get_shape().as_list())
 net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024))
 net = dropout(net, 0.5)
-net = fully_connected(net, maxLen, activation='softmax')
+net = fully_connected(net, 2, activation='softmax')
 net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005)
 print("Done")
 
