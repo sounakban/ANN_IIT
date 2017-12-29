@@ -61,7 +61,7 @@ model.fit(trainX, trainY, n_epoch=10, validation_set=0.1, show_metric=True, batc
 print( model.evaluate(testX, testY) )
 predictions = model.predict(testX)
 
-"""
+
 ##Calculate F1 Score
 tp = 0
 tn = 0
@@ -88,4 +88,8 @@ f1 = 2*((pr*rec)/(pr+rec))
 print("Precision : ", pr)
 print("Recall : ", rec)
 print("F1 : ", f1)
+print("Tru-Pos : ", tp)
+print("Tru-Neg : ", tn)
+print("Fals-Pos : ", fp)
+print("Fals-Neg : ", fn)
 #"""

@@ -7,7 +7,7 @@ class processed_data:
 		#For reading
 		import csv
 		import os
-		sourceDir = "/home/sounak/Resources/Data/ACE Dataset/ace_2005_td_v7/data/English/nw/fp2_apf_extracted/"
+		sourceDir = "../Resources/ACE Corpus/fp2_apf_extracted/"
 
 		docs = []
 		triggers = []
