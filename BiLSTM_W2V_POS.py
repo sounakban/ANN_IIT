@@ -57,7 +57,7 @@ model = tflearn.DNN(net, clip_gradients=0., tensorboard_verbose=2)
 embeddingWeights = tflearn.get_layer_variables_by_name('EmbeddingLayer')[0]
 # Assign your own weights (for example, a numpy array [input_dim, output_dim])
 model.set_weights(embeddingWeights, embeddings)
-model.fit(trainX, trainY, n_epoch=10, validation_set=0.1, show_metric=True, batch_size=32, shuffle=True)
+model.fit(trainX, trainY, n_epoch=3, validation_set=0.1, show_metric=True, batch_size=32, shuffle=True)
 print( model.evaluate(testX, testY) )
 predictions = model.predict(testX)
 
@@ -80,13 +80,13 @@ for i in range(predictions.shape[0]):
             tn += 1
 
 
-print(type(predictions))
-print(type(testX))
-print(type(testY))
 print(predictions.shape)
 print(testX.shape)
 print(testY.shape)
-print(tp, tn, fp, fn)
+print("Tru-Pos : ", tp)
+print("Tru-Neg : ", tn)
+print("Fals-Pos : ", fp)
+print("Fals-Neg : ", fn)
 
 pr = tp/(tp+fp)
 rec = tp/(tp+fn)
@@ -94,8 +94,3 @@ f1 = 2*((pr*rec)/(pr+rec))
 print("Precision : ", pr)
 print("Recall : ", rec)
 print("F1 : ", f1)
-print("Tru-Pos : ", tp)
-print("Tru-Neg : ", tn)
-print("Fals-Pos : ", fp)
-print("Fals-Neg : ", fn)
-#"""
