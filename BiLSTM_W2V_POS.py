@@ -80,6 +80,12 @@ for i in range(predictions.shape[0]):
             else:
                 tn += 1
 
+print(type(predictions))
+print(type(testX))
+print(type(testY))
+print(predictions.shape)
+print(testX.shape)
+print(testY.shape)
 print(tp, tn, fp, fn)
 
 pr = tp/(tp+fp)
