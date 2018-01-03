@@ -50,7 +50,7 @@ print("Done")
 
 testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
-
+print("Test : ", list(testY[10]))
 
 # Training
 model = tflearn.DNN(net, clip_gradients=0., tensorboard_verbose=2)
@@ -68,16 +68,17 @@ tn = 0
 fp = 0
 fn = 0
 for i in range(predictions.shape[0]):
-    if testY[i] == [1,0]:
-        if predictions[i] == [1,0]:
+    if list(testY[i]) == [1,0]:
+        if list(predictions[i]) == [1,0]:
             tp += 1
         else:
             fn += 1
     else:
-        if predictions[i] == [1,0]:
+        if list(predictions[i]) == [1,0]:
             fp += 1
         else:
             tn += 1
+
 
 print(type(predictions))
 print(type(testX))
