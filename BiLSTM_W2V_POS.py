@@ -68,17 +68,16 @@ tn = 0
 fp = 0
 fn = 0
 for i in range(predictions.shape[0]):
-    for j in range(predictions.shape[1]):
-        if testY[i][j] == 1:
-            if predictions[i][j] == max(predictions[i]):
-                tp += 1
-            else:
-                fn += 1
+    if testY[i] == [1,0]:
+        if predictions[i] == [1,0]:
+            tp += 1
         else:
-            if predictions[i][j] == max(predictions[i]):
-                fp += 1
-            else:
-                tn += 1
+            fn += 1
+    else:
+        if predictions[i] == [1,0]:
+            fp += 1
+        else:
+            tn += 1
 
 print(type(predictions))
 print(type(testX))
