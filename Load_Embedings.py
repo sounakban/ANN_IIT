@@ -35,6 +35,7 @@ class Embeddings:
 		position_vectors = []
 		not_in_vocab = 0
 		trig_not_in_vocab = 0
+		tot_padding = 0
 		for doc_num in range(len(corpus)):
 			trig = tokenizer.tokenize(trigger_list[doc_num])
 			trig = [wordnet_lemmatizer.lemmatize(t) for t in trig]
@@ -56,7 +57,7 @@ class Embeddings:
 						trig_temp.append(1)
 					else:
 						trig_temp.append(0)
-				else:
+				elif not word == ".":
 					#Not set to 0 in order to retain atleast the POS tags for the terms
 					not_in_vocab += 1
 					doc_temp.append(self.num_of_words)
@@ -67,6 +68,11 @@ class Embeddings:
 						trig_not_in_vocab += 1
 					else:
 						trig_temp.append(0)
+				else:
+					doc_temp.append(0)
+					trig_temp.append(0)
+					tot_padding += 1
+
 
 			#if len(doc_temp) > self.maxSize:
 				#self.maxSize = len(doc_temp)
@@ -82,10 +88,13 @@ class Embeddings:
 			position_vectors.extend(posits)
 			self.POS_labels.append(tags)
 
+			print("Load_Embedings :: GoogleVecs_POS_triggerVecs")
 			print("Num of Docs : ", len(corpus))
-			print("Total Doc Len : ", num)
-			print("Words not found : ", not_in_vocab)
-			print("Triggers not found : ", trig_not_in_vocab)
+			print("Total Doc Len : ", self.num_of_words)
+			print("Words not found in embeddings : ", not_in_vocab)
+			print("Triggers not found in embeddings : ", trig_not_in_vocab)
+			print("Total Padding : ", tot_padding)
+			print("Load_Embedings :: GoogleVecs_POS_triggerVecs")
 
 
 
