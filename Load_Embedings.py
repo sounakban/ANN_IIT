@@ -7,11 +7,11 @@ class Embeddings:
 		self.model = gensim.models.KeyedVectors.load_word2vec_format('../Resources/GoogleNews-vectors-negative300.bin', binary=True)
 		self.doc_vectors = []
 		self.embeddings = []
-		#To keep the 0th element an empty vector [to account for padded variables]
+		#To keep the 0th element an empty vector [to map the padded elements]
 		self.embeddings.append([0.]*len(list(self.model["hello"])))
 		self.maxSize = 0
 		self.POS_labels = []
-		#To keep the 0th element an empty vector [becasuse of the padded variables]
+		#To keep the 0th element an empty vector [to map the padded elemnts]
 		self.POS_labels.append(["."])
 		self.num_of_words = 1	#0 is reserved for unknown words
 		self.word2vec_Map = {}
@@ -33,6 +33,8 @@ class Embeddings:
 
 		trig_vectors = []
 		position_vectors = []
+		not_in_vocab = 0
+		trig_not_in_vocab = 0
 		for doc_num in range(len(corpus)):
 			trig = tokenizer.tokenize(trigger_list[doc_num])
 			trig = [wordnet_lemmatizer.lemmatize(t) for t in trig]
@@ -55,11 +57,14 @@ class Embeddings:
 					else:
 						trig_temp.append(0)
 				else:
+					#Not set to 0 in order to retain atleast the POS tags for the terms
+					not_in_vocab += 1
 					doc_temp.append(self.num_of_words)
 					self.embeddings.append([0.]*len(list(self.model["hello"])))
 					self.num_of_words += 1
 					if word in trig:
 						trig_temp.append(1)
+						trig_not_in_vocab += 1
 					else:
 						trig_temp.append(0)
 
@@ -76,6 +81,12 @@ class Embeddings:
 			trig_vectors.extend(trig_temp)
 			position_vectors.extend(posits)
 			self.POS_labels.append(tags)
+
+			print("Num of Docs : ", len(corpus))
+			print("Total Doc Len : ", tot_len)
+			print("Words not found : ", not_in_vocab)
+			print("Triggers not found : ", trig_not_in_vocab)
+
 
 
 		del self.model
