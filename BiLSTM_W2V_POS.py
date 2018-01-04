@@ -5,6 +5,7 @@ random.seed(100)
 
 
 from Create_Data_Model import processed_data, pad_sequences_3D, labelMatrix2OneHot, concat_2Dvectors, Flatten_3Dto2D
+from Other_Utils import prob2Onehot
 data = processed_data()
 #from Load_Embedings import GoogleVecs
 import tensorflow as tf
