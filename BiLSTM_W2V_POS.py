@@ -60,6 +60,8 @@ model.set_weights(embeddingWeights, embeddings)
 model.fit(trainX, trainY, n_epoch=3, validation_set=0.1, show_metric=True, batch_size=32, shuffle=True)
 print( model.evaluate(testX, testY) )
 predictions = model.predict(testX)
+predictions = prob2Onehot(predictions)
+
 
 
 ##Calculate F1 Score
