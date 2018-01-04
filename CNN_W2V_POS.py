@@ -79,6 +79,7 @@ model.fit(trainX, trainY, n_epoch=3, validation_set=0.1, show_metric=True, batch
 predictions = model.predict(testX)
 predictions = prob2Onehot(predictions)
 #print("Predictions : ", list(predictions[10]))
+print("Predictions : ", len([for pred in predictions if list(pred)==[1,0]]))
 
 
 
