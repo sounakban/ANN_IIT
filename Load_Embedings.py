@@ -41,10 +41,12 @@ class Embeddings:
 			trig = [wordnet_lemmatizer.lemmatize(t) for t in trig]
 			tokens = tokenizer.tokenize(corpus[doc_num])
 			tokens = [wordnet_lemmatizer.lemmatize(word) for word in tokens if not word in stop_words]
-			while len(tokens) < self.sent_len:
-				tokens.append(".")
 			tags = pos_tag(tokens)
 			tags = [x[1] for x in tags]
+			##If padded before POS taggings Embedding size and POS tag size will not match
+			#as "." in Embeddings are ignored in the for Loop below
+			while len(tokens) < self.sent_len:
+				tokens.append(".")
 
 			doc_temp = []
 			trig_temp = []
@@ -95,7 +97,6 @@ class Embeddings:
 		print("Triggers not found in embeddings : ", trig_not_in_vocab)
 		print("Total Padding : ", tot_padding)
 		print("Load_Embedings :: GoogleVecs_POS_triggerVecs")
-
 
 
 		del self.model
