@@ -15,7 +15,8 @@ import tflearn
 from tflearn.data_utils import to_categorical, pad_sequences
 from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.embedding_ops import embedding
-from tflearn.layers.recurrent import bidirectional_rnn, BasicLSTMCell
+from tflearn.layers.conv import conv_1d, global_max_pool
+from tflearn.layers.merge_ops import merge
 from tflearn.layers.estimator import regression
 
 #Get data
