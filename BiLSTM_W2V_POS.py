@@ -22,13 +22,14 @@ from tflearn.layers.estimator import regression
 trainX, embeddings, trainY, maxLen, POS_labels, position_vectors = data.get_Data_Embeddings()
 POS_vectors, _ = labelMatrix2OneHot(POS_labels)
 del data
+"""
 print("TrainX : ", len(trainX))
 print("TrainY : ", len(trainY))
 print("Embd : ", len(embeddings))
 print("POS : ", len(POS_labels))
 print("POSit  : ", len(position_vectors))
 print("Max Len : ", maxLen)
-
+"""
 
 # Data preprocessing
 # Sequence padding
@@ -46,12 +47,9 @@ net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024))
 net = dropout(net, 0.5)
 net = fully_connected(net, 2, activation='softmax')
 net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005)
-print("Done")
-
 
 testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
-print("Test : ", list(testY[10]))
 
 # Training
 model = tflearn.DNN(net, clip_gradients=0., tensorboard_verbose=2)
@@ -62,6 +60,7 @@ model.fit(trainX, trainY, n_epoch=3, validation_set=0.1, show_metric=True, batch
 print( model.evaluate(testX, testY) )
 predictions = model.predict(testX)
 predictions = prob2Onehot(predictions)
+print("Predictions : ", list(predictions[10]))
 
 
 
