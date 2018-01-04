@@ -83,7 +83,7 @@ class Embeddings:
 			self.POS_labels.append(tags)
 
 			print("Num of Docs : ", len(corpus))
-			print("Total Doc Len : ", tot_len)
+			print("Total Doc Len : ", num)
 			print("Words not found : ", not_in_vocab)
 			print("Triggers not found : ", trig_not_in_vocab)
 
