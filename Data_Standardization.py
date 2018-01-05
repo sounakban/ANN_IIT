@@ -39,6 +39,7 @@ def split(doc_vectors, trig_vectors, tags, posit_window_len, sent_len):
 	doc_len = len(doc_vectors)
 	for i in range(doc_len):
 		if doc_vectors[i] == ".":
+			print("Test")
 			break
 		#print("Doc len , i : ", doc_len, i)
 		start = 0 if (i - (sent_len/2)) < 0 else int(i - (sent_len/2))
@@ -55,6 +56,7 @@ def split(doc_vectors, trig_vectors, tags, posit_window_len, sent_len):
 		#print("Target posit : ", i)
 		#print("Relative posit : ", relative_posit)
 		posit_vecs.append(create_position_vectors(sent_len, posit_window_len, relative_posit))
+		print("Done")
 	return (doc_split, trig_split, tag_split, posit_vecs)
 
 
