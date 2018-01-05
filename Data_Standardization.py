@@ -38,7 +38,8 @@ def split(doc_vectors, trig_vectors, tags, posit_window_len, sent_len):
 		print("Entering padding in Data_Standardization :: split")
 	doc_len = len(doc_vectors)
 	for i in range(doc_len):
-		if doc_vectors[i] == ".":
+		#For padded vriables
+		if doc_vectors[i] == 0:
 			print("Test")
 			break
 		#print("Doc len , i : ", doc_len, i)
@@ -56,7 +57,6 @@ def split(doc_vectors, trig_vectors, tags, posit_window_len, sent_len):
 		#print("Target posit : ", i)
 		#print("Relative posit : ", relative_posit)
 		posit_vecs.append(create_position_vectors(sent_len, posit_window_len, relative_posit))
-	print("Done")
 	return (doc_split, trig_split, tag_split, posit_vecs)
 
 
