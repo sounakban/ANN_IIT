@@ -68,7 +68,7 @@ class Embeddings:
 
 			#doc_temp, trig_temp, _ = oneHot_to_standard(doc_temp, trig_temp, tags)
 			if len(doc_temp) > self.maxSize:
-				self.maxSize = len(doc_temp[0])
+				self.maxSize = len(doc_temp)
 			self.doc_vectors.append(doc_temp)
 			trig_vectors.append(trig_temp)
 			self.POS_labels.append(tags)
