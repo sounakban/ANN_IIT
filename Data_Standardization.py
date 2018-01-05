@@ -38,6 +38,8 @@ def split(doc_vectors, trig_vectors, tags, posit_window_len, sent_len):
 		print("Entering padding in Data_Standardization :: split")
 	doc_len = len(doc_vectors)
 	for i in range(doc_len):
+		if doc_vectors[i] == ".":
+			break
 		#print("Doc len , i : ", doc_len, i)
 		start = 0 if (i - (sent_len/2)) < 0 else int(i - (sent_len/2))
 		end = start + sent_len

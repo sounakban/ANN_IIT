@@ -2,7 +2,7 @@
 
 class Embeddings:
 
-	def __init__(self, sent_len = 10):
+	def __init__(self, sent_len = 10, posit_vec_len = 5):
 		import gensim
 		self.model = gensim.models.KeyedVectors.load_word2vec_format('../Resources/GoogleNews-vectors-negative300.bin', binary=True)
 		self.doc_vectors = []
@@ -14,6 +14,9 @@ class Embeddings:
 		#To keep the 0th element an empty vector [to map the padded elemnts]
 		self.POS_labels.append(["."])
 		self.num_of_words = 1	#0 is reserved for unknown words
+		self.position_vectors = []
+		#To keep the 0th element an empty vector [to map the padded elemnts]
+		self.position_vectors.append([0]*posit_vec_len)	#reserved for unknown words
 		self.word2vec_Map = {}
 		self.sent_len = sent_len
 
@@ -32,7 +35,6 @@ class Embeddings:
 		from difflib import get_close_matches
 
 		trig_vectors = []
-		position_vectors = []
 		not_in_vocab = 0
 		trig_not_in_vocab = 0
 		tot_padding = 0
@@ -87,7 +89,7 @@ class Embeddings:
 				self.maxSize = len(doc_temp[0])
 			self.doc_vectors.extend(doc_temp)
 			trig_vectors.extend(trig_temp)
-			position_vectors.extend(posits)
+			self.position_vectors.extend(posits)
 			self.POS_labels.append(tags)
 
 		print("Load_Embedings :: GoogleVecs_POS_triggerVecs")
