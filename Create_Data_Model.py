@@ -16,17 +16,10 @@ class processed_data:
 			for name in files:
 				if name.endswith(".csv"):
 					with open(os.path.join(path, name)) as inFile:
-						#print('###############################################################################################')
 						content = csv.reader(inFile, delimiter = '\t')
 						for row in content:
 							if len(row[1].split(' ')) > 1:
 								continue
-								"""
-								print(name)
-								print("1 : "+row[0])
-								print("2 : "+row[1])
-								print("3 : "+row[2])
-								"""
 							docs.append(row[0])
 							triggers.append(row[1])
 							evType.append(row[2].split('|')[0])
