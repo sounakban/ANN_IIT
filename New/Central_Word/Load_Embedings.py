@@ -4,7 +4,7 @@ class Embeddings:
 
 	def __init__(self, sent_len = 11):
 		import gensim
-		self.model = gensim.models.KeyedVectors.load_word2vec_format('../Resources/GoogleNews-vectors-negative300.bin', binary=True)
+		self.model = gensim.models.KeyedVectors.load_word2vec_format('../../../Resources/GoogleNews-vectors-negative300.bin', binary=True)
 		self.doc_vectors = []
 		self.embeddings = []
 		#To keep the 0th element an empty vector [to map the padded elements]

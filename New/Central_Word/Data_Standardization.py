@@ -12,7 +12,7 @@ def oneHot_to_standard(doc_vectors, trig_vectors, tags, sent_len=11):
 		raise IndexError("Length of sentence splits for words and triger labels do not match!!!")
 	for doc, trig in zip(doc_split, trig_split):
 		ret_doc.append(doc)
-		if trig[sent_len/2] == 1:
+		if trig[int(sent_len/2)] == 1:
 			ret_trig.append([1,0])
 		else:
 			ret_trig.append([0,1])
@@ -50,7 +50,7 @@ def split(doc_vectors, trig_vectors, tags, sent_len):
 		sent_index = i
 
 		#Padding to shift initial words to the centre
-		while curr_index < sent_len/2:
+		while curr_index < int(sent_len/2):
 			curr_doc_window.append(0)
 			curr_trig_window.append(0)
 			curr_tag_window.append(".")
@@ -58,9 +58,9 @@ def split(doc_vectors, trig_vectors, tags, sent_len):
 
 		#Fill with sentence content
 		while sent_index < len(doc_vectors) and curr_index < sent_len:
-			curr_doc_window.append(doc_vectors[])
-			curr_trig_window.append(trig_vectors[])
-			curr_tag_window.append(tags[])
+			curr_doc_window.append(doc_vectors[sent_index])
+			curr_trig_window.append(trig_vectors[sent_index])
+			curr_tag_window.append(tags[sent_index])
 			curr_index += 1
 			sent_index += 1
 

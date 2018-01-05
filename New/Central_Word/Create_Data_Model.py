@@ -7,7 +7,7 @@ class processed_data:
 		#For reading
 		import csv
 		import os
-		sourceDir = "../Resources/ACE Corpus/fp2_apf_extracted/"
+		sourceDir = "../../../Resources/ACE Corpus/fp2_apf_extracted/"
 
 		docs = []
 		triggers = []
