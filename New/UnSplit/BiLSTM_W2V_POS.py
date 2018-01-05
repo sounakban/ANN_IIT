@@ -33,7 +33,7 @@ print("Max Len : ", maxLen)
 # Sequence padding
 trainX = pad_sequences(trainX, maxlen=maxLen, value=0.)
 #Converting labels to binary vectors
-trainY = pad_sequences(trainY, maxlen=2, value=0.)
+trainY = pad_sequences(trainY, maxlen=maxLen, value=0.)
 embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 
 # Network building
