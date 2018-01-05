@@ -44,8 +44,8 @@ class Embeddings:
 			tags = [x[1] for x in tags]
 			##If padded before POS taggings Embedding size and POS tag size will not match
 			#as "." in Embeddings are ignored in the for Loop below
-			while len(tokens) < self.sent_len:
-				tokens.append(".")
+			#while len(tokens) < self.sent_len:
+				#tokens.append(".")
 
 			doc_temp = []
 			trig_temp = []
@@ -58,7 +58,7 @@ class Embeddings:
 						trig_temp.append(1)
 					else:
 						trig_temp.append(0)
-				elif not word == ".":
+				else: #if not word == ".":
 					#Not set to 0 in order to retain atleast the POS tags for the terms
 					not_in_vocab += 1
 					doc_temp.append(self.num_of_words)
@@ -69,10 +69,10 @@ class Embeddings:
 						trig_not_in_vocab += 1
 					else:
 						trig_temp.append(0)
-				else:
-					doc_temp.append(0)
-					trig_temp.append(0)
-					tot_padding += 1
+				#else:
+					#doc_temp.append(0)
+					#trig_temp.append(0)
+					#tot_padding += 1
 
 			doc_temp, trig_temp, _ = oneHot_to_standard(doc_temp, trig_temp, tags)
 			if len(doc_temp[0]) > self.maxSize:
