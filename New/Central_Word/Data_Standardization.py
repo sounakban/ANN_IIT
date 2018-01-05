@@ -39,9 +39,6 @@ def split(doc_vectors, trig_vectors, tags, sent_len):
 
 	doc_len = len(doc_vectors)
 	for i in range(doc_len):
-		#If padding is encountered (i.e. end of sentence) then exit loop
-		if doc_vectors[i] == 0:
-			break
 
 		curr_doc_window = []
 		curr_trig_window = []

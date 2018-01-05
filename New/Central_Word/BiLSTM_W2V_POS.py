@@ -7,11 +7,10 @@ random.seed(100)
 from Create_Data_Model import processed_data, pad_sequences_3D, labelMatrix2OneHot, concat_2Dvectors, Flatten_3Dto2D
 from Other_Utils import prob2Onehot
 data = processed_data()
-#from Load_Embedings import GoogleVecs
 import tensorflow as tf
 import numpy as np
 
-import tflearn
+from tflearn import DNN, get_layer_variables_by_name
 from tflearn.data_utils import to_categorical, pad_sequences
 from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.embedding_ops import embedding
@@ -19,7 +18,7 @@ from tflearn.layers.recurrent import bidirectional_rnn, BasicLSTMCell
 from tflearn.layers.estimator import regression
 
 #Get data
-trainX, embeddings, trainY, maxLen, POS_labels, position_vectors = data.get_Data_Embeddings()
+trainX, embeddings, trainY, maxLen, POS_labels = data.get_Data_Embeddings()
 POS_vectors, _ = labelMatrix2OneHot(POS_labels)
 del data
 """
@@ -27,7 +26,6 @@ print("TrainX : ", len(trainX))
 print("TrainY : ", len(trainY))
 print("Embd : ", len(embeddings))
 print("POS : ", len(POS_labels))
-print("POSit  : ", len(position_vectors))
 print("Max Len : ", maxLen)
 """
 
@@ -42,7 +40,7 @@ embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 print("Beginning neural network")
 net = input_data(shape=[None, maxLen])
 net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
-print(net.get_shape().as_list())
+#print(net.get_shape().as_list())
 net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024))
 net = dropout(net, 0.5)
 net = fully_connected(net, 2, activation='softmax')
@@ -52,15 +50,15 @@ testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
 
 # Training
-model = tflearn.DNN(net, clip_gradients=0., tensorboard_verbose=2)
-embeddingWeights = tflearn.get_layer_variables_by_name('EmbeddingLayer')[0]
+model = DNN(net, clip_gradients=0., tensorboard_verbose=2)
+embeddingWeights = get_layer_variables_by_name('EmbeddingLayer')[0]
 # Assign your own weights (for example, a numpy array [input_dim, output_dim])
 model.set_weights(embeddingWeights, embeddings)
 model.fit(trainX, trainY, n_epoch=3, validation_set=0.1, show_metric=True, batch_size=32, shuffle=True)
-print( model.evaluate(testX, testY) )
+#print( model.evaluate(testX, testY) )
 predictions = model.predict(testX)
 predictions = prob2Onehot(predictions)
-print("Predictions : ", list(predictions[10]))
+#print("Predictions : ", list(predictions[10]))
 
 
 

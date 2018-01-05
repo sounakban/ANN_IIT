@@ -9,7 +9,7 @@ data = processed_data()
 import tensorflow as tf
 import numpy as np
 
-import tflearn
+from tflearn import DNN, get_layer_variables_by_name
 from tflearn.data_utils import to_categorical, pad_sequences
 from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.embedding_ops import embedding
@@ -71,8 +71,8 @@ testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
 
 # Training
-model = tflearn.DNN(net, clip_gradients=0., tensorboard_verbose=2)
-embeddingWeights = tflearn.get_layer_variables_by_name('EmbeddingLayer')[0]
+model = DNN(net, clip_gradients=0., tensorboard_verbose=2)
+embeddingWeights = get_layer_variables_by_name('EmbeddingLayer')[0]
 #! Assign your own weights (for example, a numpy array [input_dim, output_dim])
 model.set_weights(embeddingWeights, embeddings)
 model.fit(trainX, trainY, n_epoch=3, validation_set=0.1, show_metric=True, batch_size=32, shuffle=True)
