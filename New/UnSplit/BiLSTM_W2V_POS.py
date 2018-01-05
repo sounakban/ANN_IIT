@@ -29,7 +29,6 @@ print("POS : ", len(POS_labels))
 print("Max Len : ", maxLen)
 
 
-"""
 # Data preprocessing
 # Sequence padding
 trainX = pad_sequences(trainX, maxlen=maxLen, value=0.)
@@ -50,6 +49,7 @@ net = regression(net, optimizer='adam', loss='categorical_crossentropy', learnin
 testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
 
+"""
 # Training
 model = DNN(net, clip_gradients=0., tensorboard_verbose=2)
 embeddingWeights = get_layer_variables_by_name('EmbeddingLayer')[0]
