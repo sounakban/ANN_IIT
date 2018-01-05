@@ -3,11 +3,9 @@
 import random
 random.seed(100)
 
-
 from Create_Data_Model import processed_data, pad_sequences_3D, labelMatrix2OneHot, concat_2Dvectors, Flatten_3Dto2D
 from Other_Utils import prob2Onehot
 data = processed_data()
-#from Load_Embedings import GoogleVecs
 import tensorflow as tf
 import numpy as np
 
@@ -53,7 +51,7 @@ print(embeddings[9][300:])
 print(embeddings[10][300:])
 #"""
 
-# Network building
+# Network Description
 print("Beginning neural network")
 net = input_data(shape=[None, maxLen])
 net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
@@ -75,7 +73,7 @@ testY = trainY[int(0.3*len(trainY)):]
 # Training
 model = tflearn.DNN(net, clip_gradients=0., tensorboard_verbose=2)
 embeddingWeights = tflearn.get_layer_variables_by_name('EmbeddingLayer')[0]
-# Assign your own weights (for example, a numpy array [input_dim, output_dim])
+#! Assign your own weights (for example, a numpy array [input_dim, output_dim])
 model.set_weights(embeddingWeights, embeddings)
 model.fit(trainX, trainY, n_epoch=3, validation_set=0.1, show_metric=True, batch_size=32, shuffle=True)
 #print( model.evaluate(testX, testY) )

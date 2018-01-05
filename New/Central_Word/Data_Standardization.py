@@ -46,32 +46,44 @@ def split(doc_vectors, trig_vectors, tags, sent_len):
 		curr_doc_window = []
 		curr_trig_window = []
 		curr_tag_window = []
-		curr_index = i
-		sent_index = i
+		window_fill_index = 0
 
 		#Padding to shift initial words to the centre
-		while curr_index < int(sent_len/2):
+		while window_fill_index + i < int(sent_len/2):
 			curr_doc_window.append(0)
 			curr_trig_window.append(0)
 			curr_tag_window.append(".")
-			curr_index += 1
+			window_fill_index += 1
 
 		#Fill with sentence content
-		while sent_index < len(doc_vectors) and curr_index < sent_len:
+		#!Get Start position in sentence
+		sent_index = i - int(sent_len/2)
+		if sent_index < 0:
+			sent_index = 0
+		#!Repat till eithe sentence runs out of words or window is filled
+		while sent_index < len(doc_vectors) and window_fill_index < sent_len:
 			curr_doc_window.append(doc_vectors[sent_index])
 			curr_trig_window.append(trig_vectors[sent_index])
 			curr_tag_window.append(tags[sent_index])
-			curr_index += 1
+			window_fill_index += 1
 			sent_index += 1
 
 		#Padding if last few words are at the centre
-		while curr_index < sent_len:
+		while window_fill_index < sent_len:
 			curr_doc_window.append(0)
 			curr_trig_window.append(0)
 			curr_tag_window.append(".")
-			curr_index += 1
+			window_fill_index += 1
+
+		"""
+		print("Data_Standardization :: split")
+		print("Lengths ; doc, trigger, tag :", len(curr_doc_window), len(curr_trig_window), len(curr_tag_window))
+		print(curr_doc_window)
+		print("Data_Standardization :: split")
+		"""
 
 		doc_split.append(curr_doc_window)
 		trig_split.append(curr_trig_window)
 		tag_split.append(curr_tag_window)
+
 	return (doc_split, trig_split, tag_split)
