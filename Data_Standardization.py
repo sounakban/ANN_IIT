@@ -31,11 +31,13 @@ def split(doc_vectors, trig_vectors, tags, posit_window_len, sent_len):
 	trig_split = []
 	tag_split = []
 	posit_vecs = []
+	"""
 	while len(doc_vectors) < sent_len:
 		doc_vectors.append(0)
 		trig_vectors.append(0)
 		tags.append("Empty")
 		print("Entering padding in Data_Standardization :: split")
+	"""
 	doc_len = len(doc_vectors)
 	for i in range(doc_len):
 		#For padded vriables
