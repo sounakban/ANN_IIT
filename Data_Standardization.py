@@ -40,7 +40,6 @@ def split(doc_vectors, trig_vectors, tags, posit_window_len, sent_len):
 	for i in range(doc_len):
 		#For padded vriables
 		if doc_vectors[i] == 0:
-			print("Test")
 			break
 		#print("Doc len , i : ", doc_len, i)
 		start = 0 if (i - (sent_len/2)) < 0 else int(i - (sent_len/2))
