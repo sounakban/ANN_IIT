@@ -23,14 +23,14 @@ from tflearn.layers.estimator import regression
 trainX, embeddings, trainY, maxLen, POS_labels, position_vectors = data.get_Data_Embeddings()
 POS_vectors, _ = labelMatrix2OneHot(POS_labels)
 del data
-"""
+
 print("TrainX : ", len(trainX))
 print("TrainY : ", len(trainY))
 print("Embd : ", len(embeddings))
 print("POS : ", len(POS_labels))
 print("POSit  : ", len(position_vectors))
 print("Max Len : ", maxLen)
-"""
+
 
 # Data preprocessing
 # Sequence padding
