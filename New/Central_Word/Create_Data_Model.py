@@ -46,7 +46,7 @@ class processed_data:
 		from Load_Embedings import Embeddings
 		model_generator = Embeddings()
 
-		doc_vec, embeddings, trig_vec, maxLen, POS_labels = model_generator.GoogleVecs_POS_triggerVecs(docs[:3], triggers[:3])
+		doc_vec, embeddings, trig_vec, maxLen, POS_labels = model_generator.GoogleVecs_POS_triggerVecs(docs, triggers)
 		del model_generator
 
 		print("Document & Trigger modelling complete")
