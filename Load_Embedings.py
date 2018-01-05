@@ -103,4 +103,4 @@ class Embeddings:
 
 		del self.model
 
-		return (self.doc_vectors, self.embeddings, trig_vectors, self.maxSize, self.POS_labels, position_vectors)
+		return (self.doc_vectors, self.embeddings, trig_vectors, self.maxSize, self.POS_labels, self.position_vectors)
