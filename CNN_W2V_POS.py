@@ -42,7 +42,7 @@ embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 #Concatenate positiion vectors to the embeddings
 embeddings = concat_2Dvectors(embeddings, position_vectors)
 
-"""
+#"""
 print(embeddings[0][300:])
 print(embeddings[1][300:])
 print(embeddings[2][300:])
@@ -54,7 +54,7 @@ print(embeddings[7][300:])
 print(embeddings[8][300:])
 print(embeddings[9][300:])
 print(embeddings[10][300:])
-"""
+#"""
 
 # Network building
 print("Beginning neural network")
