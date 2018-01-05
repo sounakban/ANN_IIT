@@ -39,7 +39,7 @@ trainY = pad_sequences(trainY, maxlen=2, value=0.)
 #Concatenate POS tags to the embeddings
 embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 
-#"""
+"""
 print(embeddings[0][300:])
 print(embeddings[1][300:])
 print(embeddings[2][300:])
@@ -82,7 +82,7 @@ model.fit(trainX, trainY, n_epoch=3, validation_set=0.1, show_metric=True, batch
 predictions = model.predict(testX)
 predictions = prob2Onehot(predictions)
 #print("Predictions : ", list(predictions[10]))
-print("Predictions : ", len([pred for pred in testY if list(pred)==[1,0]]))
+print("Number of triggers : ", len([pred for pred in testY if list(pred)==[1,0]]))
 
 
 
