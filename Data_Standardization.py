@@ -56,7 +56,7 @@ def split(doc_vectors, trig_vectors, tags, posit_window_len, sent_len):
 		#print("Target posit : ", i)
 		#print("Relative posit : ", relative_posit)
 		posit_vecs.append(create_position_vectors(sent_len, posit_window_len, relative_posit))
-		print("Done")
+	print("Done")
 	return (doc_split, trig_split, tag_split, posit_vecs)
 
 
