@@ -31,9 +31,9 @@ print("Max Len : ", maxLen)
 
 # Data preprocessing
 # Sequence padding
-trainX = pad_sequences(trainX, maxlen=maxLen, value=0.)
+trainX = pad_sequences(trainX, maxlen=maxLen, value=0)
 #Converting labels to binary vectors
-trainY = pad_sequences(trainY, maxlen=maxLen, value=[0,1])
+trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,1])
 embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 
 # Network building
@@ -41,9 +41,9 @@ print("Beginning neural network")
 net = input_data(shape=[None, maxLen])
 net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
 #print(net.get_shape().as_list())
-net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024))
+net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024), return_seq=True)
 net = dropout(net, 0.5)
-net = fully_connected(net, 2, activation='softmax')
+#net = fully_connected(net, 2, activation='softmax')
 net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005)
 
 testX = trainX[int(0.3*len(trainY)):]

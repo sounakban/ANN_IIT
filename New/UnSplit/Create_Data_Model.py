@@ -84,7 +84,7 @@ def labelMatrix2OneHot(label_Matrix):
 
 def pad_sequences_3D(POS_vectors, maxlen, value):
 	for i in range(len(POS_vectors)):
-		for j in range(len(POS_vectors[i]), maxlen):
+		while len(POS_vectors[i]) < maxlen:
 			POS_vectors[i].append(value)
 	return POS_vectors
 
