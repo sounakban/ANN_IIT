@@ -25,7 +25,7 @@ del data
 print("TrainX : ", len(trainX))
 print("TrainY : ", len(trainY))
 print("Embd : ", len(embeddings))
-print("POS : ", len(POS_labels))
+print("POS : ", len(POS_labels))=len(embeddings), output_dim=len
 print("Max Len : ", maxLen)
 
 
