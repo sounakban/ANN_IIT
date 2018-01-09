@@ -49,8 +49,7 @@ class Embeddings:
 			trig_temp = []
 			for word in tokens:
 				if word in self.model.vocab:
-					doc_temp.append(self.num
-		avg_len = [len(doc) for doc in docs]_of_words)
+					doc_temp.append(self.num_of_words)
 					self.embeddings.append(list(self.model[word]))
 					self.num_of_words += 1
 					if word in trig:
