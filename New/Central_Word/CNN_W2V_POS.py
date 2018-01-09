@@ -52,7 +52,7 @@ print(embeddings[10][300:])
 #"""
 
 # Network Description
-print("Beginning neural network") whole sequence to get the derivatives with respect to the netwo
+print("Beginning neural network")
 net = input_data(shape=[None, maxLen])
 net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
 print("Shape after embeddings : ", net.get_shape().as_list())
@@ -65,10 +65,6 @@ print("Shape after CNN3 : ", branch3.get_shape().as_list())
 branch4 = conv_1d(net, 150, 5, padding='valid', activation='relu', regularizer="L2")
 print("Shape after CNN4 : ", branch4.get_shape().as_list())
 branch1 = tf.expand_dims(branch1, 2)
-print(embeddings[3][300:])
-print(embeddings[4][300:])
-print(embeddings[5][300:])
-print(embeddings[6][300:])
 branch1 = global_avg_pool(branch1)
 print("Shape after pooling : ", branch1.get_shape().as_list())
 branch2 = tf.expand_dims(branch2, 2)
