@@ -35,7 +35,8 @@ trainX = pad_sequences(trainX, maxlen=maxLen, value=0.)
 #Converting labels to binary vectors
 trainY = pad_sequences(trainY, maxlen=2, value=0.)
 #Concatenate POS tags to the embeddings
-embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
+#embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
+POS_vectors = Flatten_3Dto2D(POS_vectors)
 
 """
 print(embeddings[0][300:])
@@ -55,6 +56,7 @@ print(embeddings[10][300:])
 print("Beginning neural network")
 net = input_data(shape=[None, maxLen])
 net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
+net = embedding(net, input_dim=len(POS_vectors), output_dim=len(POS_vectors[0]), trainable=False, name="POSLayer")
 print("Shape after embeddings : ", net.get_shape().as_list())
 branch1 = conv_1d(net, 150, 2, padding='valid', activation='relu', regularizer="L2")
 print("Shape after CNN1 : ", branch1.get_shape().as_list())
@@ -76,12 +78,6 @@ print("Shape after pooling : ", branch3.get_shape().as_list())
 branch4 = tf.expand_dims(branch4, 2)
 branch4 = global_avg_pool(branch4)
 print("Shape after pooling : ", branch4.get_shape().as_list())
-#net = merge([branch1, branch2, branch3, branch4], mode='concat', axis=1)
-#print("Shape after CNN merging : ", net.get_shape().as_list())
-#net = tf.expand_dims(net, 2)
-#print("Shape after expand dims : ", net.get_shape().as_list())
-#net = global_avg_pool(net)
-#print("Shape after pooling : ", net.get_shape().as_list())
 net = merge([branch1, branch2, branch3, branch4], mode='concat', axis=1)
 print("Shape after CNN merging : ", net.get_shape().as_list())
 net = dropout(net, 0.5)
@@ -97,8 +93,10 @@ testY = trainY[int(0.3*len(trainY)):]
 # Training
 model = DNN(net, clip_gradients=0., tensorboard_verbose=2)
 embeddingWeights = get_layer_variables_by_name('EmbeddingLayer')[0]
+POSWeights = get_layer_variables_by_name('POSLayer')[0]
 #! Assign your own weights (for example, a numpy array [input_dim, output_dim])
 model.set_weights(embeddingWeights, embeddings)
+model.set_weights(POSWeights, POS_vectors)
 model.fit(trainX, trainY, n_epoch=3, validation_set=0.1, show_metric=True, batch_size=50, shuffle=True)
 #print( model.evaluate(testX, testY) )
 predictions = model.predict(testX)
