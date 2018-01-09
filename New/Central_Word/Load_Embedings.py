@@ -35,11 +35,13 @@ class Embeddings:
 		not_in_vocab = 0
 		trig_not_in_vocab = 0
 		tot_padding = 0
+		avg_doc_len = 0
 		for doc_num in range(len(corpus)):
 			trig = tokenizer.tokenize(trigger_list[doc_num])
 			trig = [wordnet_lemmatizer.lemmatize(t) for t in trig]
 			tokens = tokenizer.tokenize(corpus[doc_num])
 			tokens = [wordnet_lemmatizer.lemmatize(word) for word in tokens if not word in stop_words]
+			avg_doc_len += len(tokens)
 			tags = pos_tag(tokens)
 			tags = [x[1] for x in tags]
 
@@ -47,7 +49,8 @@ class Embeddings:
 			trig_temp = []
 			for word in tokens:
 				if word in self.model.vocab:
-					doc_temp.append(self.num_of_words)
+					doc_temp.append(self.num
+		avg_len = [len(doc) for doc in docs]_of_words)
 					self.embeddings.append(list(self.model[word]))
 					self.num_of_words += 1
 					if word in trig:
@@ -79,6 +82,7 @@ class Embeddings:
 		print("Words not found in embeddings : ", not_in_vocab)
 		print("Triggers not found in embeddings : ", trig_not_in_vocab)
 		print("Total Padding : ", tot_padding)
+		print("Average Document Length: ", avg_doc_len/len(corpus))
 		print("Load_Embedings :: GoogleVecs_POS_triggerVecs")
 
 		del self.model
