@@ -37,6 +37,8 @@ trainY = pad_sequences(trainY, maxlen=2, value=0.)
 #Concatenate POS tags to the embeddings
 #embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 POS_vectors = Flatten_3Dto2D(POS_vectors)
+print(len(POS_vectors))
+print(len(POS_vectors[0]))
 
 """
 print(embeddings[0][300:])
