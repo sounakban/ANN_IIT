@@ -38,7 +38,7 @@ trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,1])
 embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 
 
-"""
+
 # Network building
 print("Beginning neural network")
 net = input_data(shape=[None, maxLen])
@@ -47,13 +47,13 @@ net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), t
 net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024), return_seq=True)
 net = dropout(net, 0.5)
 #net = fully_connected(net, 2, activation='softmax')
-net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005)
+net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005, return_seq=True)
 
 testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
 
 
-
+"""
 # Training
 model = DNN(net, clip_gradients=0., tensorboard_verbose=2)
 embeddingWeights = get_layer_variables_by_name('EmbeddingLayer')[0]
