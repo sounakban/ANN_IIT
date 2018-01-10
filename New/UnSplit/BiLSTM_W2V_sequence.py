@@ -105,4 +105,3 @@ f1 = 2*((pr*rec)/(pr+rec))
 print("Precision : ", pr)
 print("Recall : ", rec)
 print("F1 : ", f1)
-"""
