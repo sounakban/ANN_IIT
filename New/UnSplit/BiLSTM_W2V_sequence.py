@@ -1,8 +1,8 @@
 #This module will perform trigger detection
 
+#Imports
 import random
 random.seed(100)
-
 
 from Create_Data_Model import processed_data, pad_sequences_3D, labelMatrix2OneHot, concat_2Dvectors, Flatten_3Dto2D
 from Other_Utils import prob2Onehot
@@ -17,6 +17,8 @@ from tflearn.layers.embedding_ops import embedding
 from tflearn.layers.recurrent import bidirectional_rnn, BasicLSTMCell
 from tflearn.layers.estimator import regression
 
+
+
 #Get data
 trainX, embeddings, trainY, maxLen, POS_labels = data.get_Data_Embeddings()
 POS_vectors, _ = labelMatrix2OneHot(POS_labels)
@@ -28,7 +30,6 @@ print("Embd : ", len(embeddings))
 print("POS : ", len(POS_labels))
 print("Max Len : ", maxLen)
 
-
 # Data preprocessing
 # Sequence padding
 trainX = pad_sequences(trainX, maxlen=maxLen, value=0)
@@ -36,6 +37,8 @@ trainX = pad_sequences(trainX, maxlen=maxLen, value=0)
 trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,1])
 embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 
+
+"""
 # Network building
 print("Beginning neural network")
 net = input_data(shape=[None, maxLen])
@@ -49,7 +52,8 @@ net = regression(net, optimizer='adam', loss='categorical_crossentropy', learnin
 testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
 
-"""
+
+
 # Training
 model = DNN(net, clip_gradients=0., tensorboard_verbose=2)
 embeddingWeights = get_layer_variables_by_name('EmbeddingLayer')[0]
