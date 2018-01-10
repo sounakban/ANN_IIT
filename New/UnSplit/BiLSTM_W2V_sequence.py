@@ -49,7 +49,7 @@ print("After RNN : ", net.get_shape().as_list())
 net = dropout(net, 0.5)
 print("After Dropout : ", net.get_shape().as_list())
 net = fully_connected(net, 2, activation='softmax')
-net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005, return_seq=True)
+net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005)
 print("After regression : ", net.get_shape().as_list())
 
 testX = trainX[int(0.3*len(trainY)):]
