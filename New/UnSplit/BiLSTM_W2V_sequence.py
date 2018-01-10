@@ -43,8 +43,10 @@ embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 print("Beginning neural network")
 net = input_data(shape=[None, maxLen])
 net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
-#print(net.get_shape().as_list())
+print("After embeddings : ", net.get_shape().as_list())
 net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024), return_seq=True)
+print("Type from rnn : ", type(net))
+"""
 print("After RNN : ", net.get_shape().as_list())
 net = dropout(net, 0.5)
 print("After Dropout : ", net.get_shape().as_list())
@@ -56,7 +58,7 @@ testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
 
 
-"""
+
 # Training
 model = DNN(net, clip_gradients=0., tensorboard_verbose=2)
 embeddingWeights = get_layer_variables_by_name('EmbeddingLayer')[0]
