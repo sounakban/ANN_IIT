@@ -45,9 +45,12 @@ net = input_data(shape=[None, maxLen])
 net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
 #print(net.get_shape().as_list())
 net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024), return_seq=True)
+print("After RNN : ", net.get_shape().as_list())
 net = dropout(net, 0.5)
-#net = fully_connected(net, 2, activation='softmax')
+print("After Dropout : ", net.get_shape().as_list())
+net = fully_connected(net, 2, activation='softmax')
 net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005, return_seq=True)
+print("After regression : ", net.get_shape().as_list())
 
 testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
