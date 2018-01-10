@@ -46,14 +46,12 @@ net = input_data(shape=[None, maxLen])
 net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
 print("After embeddings : ", net.get_shape().as_list())
 net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024), return_seq=True)
+net = [dropout(net[i], 0.5) for i in range(len(net))]
 net = [fully_connected(net[i], 1, activation='softmax') for i in range(len(net))]
 net = merge(net, mode='concat')#, axis=1)
-print("After merge : ", net.get_shape().as_list())
-"""
 print("After RNN : ", net.get_shape().as_list())
-net = dropout(net, 0.5)
+#net = dropout(net, 0.5)
 print("After Dropout : ", net.get_shape().as_list())
-net = fully_connected(net, 2, activation='softmax')
 net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005)
 print("After regression : ", net.get_shape().as_list())
 
