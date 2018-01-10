@@ -15,6 +15,7 @@ from tflearn.data_utils import to_categorical, pad_sequences
 from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.embedding_ops import embedding
 from tflearn.layers.recurrent import bidirectional_rnn, BasicLSTMCell
+from tflearn.layers.merge_ops import merge
 from tflearn.layers.estimator import regression
 
 
@@ -45,8 +46,9 @@ net = input_data(shape=[None, maxLen])
 net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
 print("After embeddings : ", net.get_shape().as_list())
 net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024), return_seq=True)
-print("Len RNN : ", len(net))
-print("RNN : ", net[0])
+net = [fully_connected(net[i], 1, activation='softmax') for i in range(len(net))]
+net = merge(net, mode='concat')#, axis=1)
+print("After merge : ", net.get_shape().as_list())
 """
 print("After RNN : ", net.get_shape().as_list())
 net = dropout(net, 0.5)
