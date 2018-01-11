@@ -45,13 +45,13 @@ print("Beginning neural network")
 net = input_data(shape=[None, maxLen])
 net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
 print("After embeddings : ", net.get_shape().as_list())
-net = bidirectional_rnn(net, BasicLSTMCell(1024, activation='relu'), BasicLSTMCell(1024, activation='relu'), return_seq=True)
+net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024), return_seq=True)
 #net = [dropout(net[i], 0.5) for i in range(len(net))]
 net = [fully_connected(net[i], 1, activation='sigmoid') for i in range(len(net))]
 net = merge(net, mode='concat')
 print("After RNN : ", net.get_shape().as_list())
 print("After Dropout : ", net.get_shape().as_list())
-net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005)
+net = regression(net, optimizer='adam', loss='binary_crossentropy', learning_rate=0.005)
 print("After regression : ", net.get_shape().as_list())
 
 testX = trainX[int(0.3*len(trainY)):]
