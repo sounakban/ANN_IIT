@@ -36,7 +36,7 @@ print("Max Len : ", maxLen)
 trainX = pad_sequences(trainX, maxlen=maxLen, value=0)
 #Converting labels to binary vectors
 trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,1])
-print("Shape of output : ", trainY.shape)
+print("Shape of output : ", trainY[0])
 embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 
 
@@ -51,7 +51,6 @@ net = [dropout(net[i], 0.5) for i in range(len(net))]
 net = [fully_connected(net[i], 1, activation='softmax') for i in range(len(net))]
 net = merge(net, mode='concat')#, axis=1)
 print("After RNN : ", net.get_shape().as_list())
-#net = dropout(net, 0.5)
 print("After Dropout : ", net.get_shape().as_list())
 net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005)
 print("After regression : ", net.get_shape().as_list())
