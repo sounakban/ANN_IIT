@@ -36,20 +36,19 @@ print("Max Len : ", maxLen)
 trainX = pad_sequences(trainX, maxlen=maxLen, value=0)
 #Converting labels to binary vectors
 trainY = pad_sequences(trainY, maxlen=maxLen, value=0)
-print("Shape of output : ", trainY[0])
 embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 
 
 
 # Network building
-print("Beginning neural network")
+print("Beginning neural network") 
 net = input_data(shape=[None, maxLen])
-net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
+net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=True, name="EmbeddingLayer")
 print("After embeddings : ", net.get_shape().as_list())
 net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024), return_seq=True)
 net = [dropout(net[i], 0.5) for i in range(len(net))]
-net = [fully_connected(net[i], 1, activation='softmax') for i in range(len(net))]
-net = merge(net, mode='concat')#, axis=1)
+net = [fully_connected(net[i], 1, activation='sigmoid') for i in range(len(net))]
+net = merge(net, mode='concat')
 print("After RNN : ", net.get_shape().as_list())
 print("After Dropout : ", net.get_shape().as_list())
 net = regression(net, optimizer='adam', loss='categorical_crossentropy', learning_rate=0.005)
