@@ -36,6 +36,7 @@ print("Max Len : ", maxLen)
 trainX = pad_sequences(trainX, maxlen=maxLen, value=0)
 #Converting labels to binary vectors
 trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,1])
+print("Shape of output : ", trainY.shape)
 embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 
 
