@@ -51,9 +51,9 @@ class Embeddings:
 					self.embeddings.append(list(self.model[word]))
 					self.num_of_words += 1
 					if word in trig:
-						trig_temp.append([1,0])
+						trig_temp.append(1)
 					else:
-						trig_temp.append([0,1])
+						trig_temp.append(0)
 				else:
 					not_in_vocab += 1
 					#Not set to 0 in order to retain atleast the POS tags for the terms
@@ -62,9 +62,9 @@ class Embeddings:
 					self.num_of_words += 1
 					if word in trig:
 						trig_not_in_vocab += 1
-						trig_temp.append([1,0])
+						trig_temp.append(1)
 					else:
-						trig_temp.append([0,1])
+						trig_temp.append(0)
 
 			#doc_temp, trig_temp, _ = oneHot_to_standard(doc_temp, trig_temp, tags)
 			if len(doc_temp) > self.maxSize:
