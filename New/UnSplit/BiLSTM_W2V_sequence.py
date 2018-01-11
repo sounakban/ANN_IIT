@@ -41,11 +41,11 @@ embeddings = concat_2Dvectors(embeddings, Flatten_3Dto2D(POS_vectors))
 
 
 # Network building
-print("Beginning neural network") 
+print("Beginning neural network")
 net = input_data(shape=[None, maxLen])
-net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=True, name="EmbeddingLayer")
+net = embedding(net, input_dim=len(embeddings), output_dim=len(embeddings[0]), trainable=False, name="EmbeddingLayer")
 print("After embeddings : ", net.get_shape().as_list())
-net = bidirectional_rnn(net, BasicLSTMCell(1024), BasicLSTMCell(1024), return_seq=True)
+net = bidirectional_rnn(net, BasicLSTMCell(1024, activation='relu'), BasicLSTMCell(1024, activation='relu'), return_seq=True)
 net = [dropout(net[i], 0.5) for i in range(len(net))]
 net = [fully_connected(net[i], 1, activation='sigmoid') for i in range(len(net))]
 net = merge(net, mode='concat')
