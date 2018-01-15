@@ -1,49 +1,56 @@
-#This module will perform trigger detection
+###### This module will perform trigger detection #######
 
 import random
 random.seed(100)
 
-from Create_Data_Model import processed_data, pad_sequences_3D, labelMatrix2OneHot, concat_2Dvectors, Flatten_3Dto2D
-from Other_Utils import prob2Onehot
+from Create_Data_Model import processed_data, tagMatrix2Embeddings
+from Other_Utils import prob2Onehot, pad_sequences_3D
 data = processed_data()
 import tensorflow as tf
 import numpy as np
 
 from keras.preprocessing import sequence
 from keras.models import Model
-from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge, Bidirectional
+from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge, Bidirectional, Add
 from keras.optimizers import Adam
 
 #Get data
-trainX, trained_embeddings, trainY, maxLen, POS_labels = data.get_Data_Embeddings()
+trainX, word_embeddings, trainY, maxLen, POS_labels = data.get_Data_Embeddings()
 POS_vectors, POS_emdeddings, _ = tagMatrix2Embeddings(POS_labels)
 del data
 
 print("TrainX : ", len(trainX))
 print("TrainY : ", len(trainY))
-print("Embd : ", len(trained_embeddings))
+print("Embd : ", len(word_embeddings))
 print("POS : ", len(POS_labels))
 print("Max Len : ", maxLen)
 
 # Data preprocessing
-# Sequence padding
+## Sequence padding
 trainX = pad_sequences(trainX, maxlen=maxLen, value=0)
-#Converting labels to binary vectors
 trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,1])
-#trained_embeddings = concat_2Dvectors(trained_embeddings, Flatten_3Dto2D(POS_vectors))
 
-# Network building
+# Defining the Network
 print("Beginning neural network")
-inp = Input(shape=(maxlen,))
-embed_layer = Embedding(len(trained_embeddings), len(trained_embeddings[0]), input_length=maxlen)(net)
-embed_layer.set_weights(trained_embeddings)
+
+## Defining vectors and embeddings
+word_inp = Input(shape=(maxlen,))
+word_embed_layer = Embedding(len(word_embeddings), len(word_embeddings[0]), input_length=maxlen)(word_inp)
+word_embed_layer.set_weights(word_embeddings)
+POS_inp = Input(shape=(maxlen,))
+POS_embed_layer = Embedding(len(POS_embeddings), len(POS_embeddings[0]), input_length=maxlen)(POS_inp)
+POS_embed_layer.set_weights(POS_embeddings)
+
+## Combine Embeddings
+embed_layer = Add()[word_embed_layer, POS_embed_layer]
+
 #print(net.get_shape().as_list())
 #seq = Bidirectional(LSTM(256, dropout=0.5, recurrent_dropout=0.2, return_sequences=True), merge_mode='concat')(embed_layer)
 #seq = Bidirectional(LSTM(256, dropout=0.5, return_sequences=True), merge_mode='concat')(embed_layer)
 seq = Bidirectional(LSTM(256, return_sequences=True), merge_mode='concat')(embed_layer)
 seq = Dropout(0.5)(seq)
 mlp = TimeDistributed(Dense(2, activation='softmax'))(seq)
-net = Model(input=inp, output=mlp)
+net = Model(inputs=[word_inp, POS_inp], outputs=mlp)
 optimizer = Adam(lr=0.001)
 net.compile(optimizer=optimizer, loss='categorical_crossentropy')
 

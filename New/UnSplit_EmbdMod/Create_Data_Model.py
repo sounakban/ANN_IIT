@@ -90,13 +90,6 @@ for i in range(len(label_Matrix)):
 return (vector_Matrix, label2Vactor_Map)
 
 
-def pad_sequences_3D(POS_vectors, maxlen, value):
-	for i in range(len(POS_vectors)):
-		while len(POS_vectors[i]) < maxlen:
-			POS_vectors[i].append(value)
-	return POS_vectors
-
-
 def concat_3Dvectors(vecA, vecB):
 	if (not len(vecA) == len(vecB)) or (not len(vecA[0]) == len(vecB[0])):
 		raise ValueError("The dimentions of inut vectors donot match in the fist two axes")
