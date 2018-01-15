@@ -21,8 +21,10 @@ del data
 
 print("TrainX : ", len(trainX))
 print("TrainY : ", len(trainY))
-print("Embd : ", len(word_embeddings))
-print("POS : ", len(POS_labels))
+print("Word Embd : ", len(word_embeddings))
+print("POS labels: ", len(POS_labels))
+print("POS vecs: ", len(POS_vectors))
+print("POS Embd: ", len(POS_emdeddings))
 print("Max Len : ", maxLen)
 
 # Data preprocessing
@@ -37,13 +39,17 @@ print("Beginning neural network")
 word_inp = Input(shape=(maxlen,))
 word_embed_layer = Embedding(len(word_embeddings), len(word_embeddings[0]), input_length=maxlen)(word_inp)
 word_embed_layer.set_weights(word_embeddings)
+print("Shape, word embd: ", np.shape(word_embed_layer))
 POS_inp = Input(shape=(maxlen,))
 POS_embed_layer = Embedding(len(POS_embeddings), len(POS_embeddings[0]), input_length=maxlen)(POS_inp)
 POS_embed_layer.set_weights(POS_embeddings)
+print("Shape, POS embd: ", np.shape(POS_embed_layer))
 
 ## Combine Embeddings
 embed_layer = Add()[word_embed_layer, POS_embed_layer]
+print("Shape, total embd: ", np.shape(embed_layer))
 
+## Layer Operations
 #print(net.get_shape().as_list())
 #seq = Bidirectional(LSTM(256, dropout=0.5, recurrent_dropout=0.2, return_sequences=True), merge_mode='concat')(embed_layer)
 #seq = Bidirectional(LSTM(256, dropout=0.5, return_sequences=True), merge_mode='concat')(embed_layer)
