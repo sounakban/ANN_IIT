@@ -90,13 +90,13 @@ fp = 0
 fn = 0
 for i in range(predictions.shape[0]):
     for j in range(predictions.shape[1]):
-        if list(testY[i][j]) == [1,0]:
-            if list(predictions[i][j]) == [1,0]:
+        if list(testY[i][j]) == [0,1,0] or list(testY[i][j]) == [1,0,0]:
+            if list(predictions[i][j]) == [0,1,0] or list(predictions[i][j]) == [1,0,0]:
                 tp += 1
             else:
                 fn += 1
         else:
-            if list(predictions[i][j]) == [1,0]:
+            if list(predictions[i][j]) == [0,1,0] or list(predictions[i][j]) == [1,0,0]:
                 fp += 1
             else:
                 tn += 1
