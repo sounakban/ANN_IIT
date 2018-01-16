@@ -33,6 +33,7 @@ print("Max Len : ", maxLen)
 trainX = pad_sequences(trainX, maxlen=maxLen, value=0)
 POS_vectors = pad_sequences(POS_vectors, maxlen=maxLen, value=0)
 trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,1])
+print("Shape after padding : ", trainY.shape)
 
 # Defining the Network
 print("Beginning neural network")

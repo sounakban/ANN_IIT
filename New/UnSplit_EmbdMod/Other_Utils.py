@@ -1,5 +1,5 @@
 #Contains routines for data manipulation s that are different from other modules
-
+import numpy as np
 
 def prob2Onehot(prob_dist):
 	import numpy as np
@@ -12,8 +12,8 @@ def prob2Onehot(prob_dist):
 	return np.array(ret_vec)
 
 
-def pad_sequences_3D(POS_vectors, maxlen, value):
-	for i in range(len(POS_vectors)):
-		while len(POS_vectors[i]) < maxlen:
-			POS_vectors[i].append(value)
-	return POS_vectors
+def pad_sequences_3D(vectors, maxlen, value):
+	for i in range(len(vectors)):
+		while len(vectors[i]) < maxlen:
+			vectors[i].append(value)
+	return np.array(vectors)
