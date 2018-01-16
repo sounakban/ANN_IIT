@@ -9,7 +9,7 @@ data = processed_data()
 import tensorflow as tf
 import numpy as np
 
-from keras.preprocessing import sequence
+from keras.preprocessing.sequence import pad_sequences
 from keras.models import Model
 from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge, Bidirectional, Add
 from keras.optimizers import Adam
