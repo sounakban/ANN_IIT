@@ -86,7 +86,7 @@ class Embeddings:
 
 		print("Load_Embedings :: GoogleVecs_POS_triggerVecs")
 		print("Num of Docs : ", len(corpus))
-		print("Total Doc Len : ", self.num_of_words)
+		print("Number of unique Words : ", self.num_of_words)
 		print("Words not found in embeddings : ", not_in_vocab)
 		print("Triggers not found in embeddings : ", trig_not_in_vocab)
 		print("Total Padding : ", tot_padding)
