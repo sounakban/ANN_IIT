@@ -56,6 +56,7 @@ def tagMatrix2Embeddings(tag_Matrix, embd_size=50):
 
 	import numpy as np
 	tag_emdeddings = np.random.uniform(size = (len(all_tags), embd_size) )
+	tag_vectors = np.array(tag_vectors)
 
 	return (tag_vectors, tag_emdeddings, all_tags)
 
