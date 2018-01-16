@@ -16,7 +16,7 @@ from keras.optimizers import Adam
 
 #Get data
 trainX, word_embeddings, trainY, maxLen, POS_labels = data.get_Data_Embeddings()
-POS_vectors, POS_emdeddings, _ = tagMatrix2Embeddings(POS_labels)
+POS_vectors, POS_embeddings, _ = tagMatrix2Embeddings(POS_labels)
 del data
 
 print("TrainX : ", len(trainX))
