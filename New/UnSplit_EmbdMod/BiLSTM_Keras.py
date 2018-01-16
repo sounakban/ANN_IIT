@@ -65,7 +65,7 @@ testY = trainY[int(0.3*len(trainY)):]
 
 
 # Training
-model.fit(trainX, trainY, epochs=3, validation_split=0.1, verbose=2, batch_size=32, shuffle=True)
+model.fit([trainX, POS_vectors], trainY, epochs=3, validation_split=0.1, verbose=2, batch_size=32, shuffle=True)
 #print( model.evaluate(testX, testY) )
 predictions = model.predict(testX)
 predictions = prob2Onehot(predictions)
