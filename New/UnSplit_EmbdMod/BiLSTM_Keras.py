@@ -35,6 +35,13 @@ POS_vectors = pad_sequences(POS_vectors, maxlen=maxLen, value=0)
 trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,1])
 print("Shape after padding : ", trainY.shape)
 
+tot = 0
+for a in trainX:
+    for b in a:
+        if list(b) == [1,0]:
+            tot += 1
+print("Totall positive results : ", tot)
+
 # Defining the Network
 print("Beginning neural network")
 
