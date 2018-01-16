@@ -1,5 +1,7 @@
 #Includes functions to import word vectors
 
+import numpy as np
+
 class Embeddings:
 
 	def __init__(self):
@@ -20,7 +22,6 @@ class Embeddings:
 	def GoogleVecs_POS_triggerVecs(self, corpus, trigger_list):
 
 		from Data_Standardization import oneHot_to_standard
-		import numpy as np
 
 		from nltk.tokenize import RegexpTokenizer
 		tokenizer = RegexpTokenizer(r'\w+')
