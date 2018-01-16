@@ -116,7 +116,7 @@ class Embeddings:
 		for doc_num in range(len(corpus)):
 			#trig = tokenizer.tokenize(trigger_list[doc_num])
 			triggers = trigger_list[doc_num]
-			triggers = [tokenizer.tokenize(t) for trig in triggers]
+			triggers = [tokenizer.tokenize(trig) for trig in triggers]
 			for trig in trig:
 				trig = [wordnet_lemmatizer.lemmatize(x) for x in trig]
 			if len(trig) == 1 and trig[0] in stop_words:
