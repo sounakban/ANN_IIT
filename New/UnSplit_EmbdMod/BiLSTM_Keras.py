@@ -36,12 +36,12 @@ trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,1])
 print("Beginning neural network")
 
 ## Defining vectors and embeddings
-word_inp = Input(shape=(maxlen,))
-word_embed_layer = Embedding(len(word_embeddings), len(word_embeddings[0]), input_length=maxlen)(word_inp)
+word_inp = Input(shape=(maxLen,))
+word_embed_layer = Embedding(len(word_embeddings), len(word_embeddings[0]), input_length=maxLen)(word_inp)
 word_embed_layer.set_weights(word_embeddings)
 print("Shape, word embd: ", np.shape(word_embed_layer))
-POS_inp = Input(shape=(maxlen,))
-POS_embed_layer = Embedding(len(POS_embeddings), len(POS_embeddings[0]), input_length=maxlen)(POS_inp)
+POS_inp = Input(shape=(maxLen,))
+POS_embed_layer = Embedding(len(POS_embeddings), len(POS_embeddings[0]), input_length=maxLen)(POS_inp)
 POS_embed_layer.set_weights(POS_embeddings)
 print("Shape, POS embd: ", np.shape(POS_embed_layer))
 
