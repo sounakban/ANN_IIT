@@ -38,6 +38,7 @@ class processed_data:
 		self.docs = []
 		self.triggers = []
 		self.evType = []
+		self.evSubtype = []
 
 		for path, subdirs, files in os.walk(sourceDir):
 			for name in files:
@@ -47,9 +48,15 @@ class processed_data:
 						for row in content:
 							if len(row[1].split(' ')) > 1:
 								continue
-							self.docs.append(row[0])
-							self.triggers.append(row[1])
-							self.evType.append(row[2].split('|')[0])
+							if row[0] in self.docs:
+								self.triggers[self.docs.index(row[0])].append(row[1])
+								self.evType[self.docs.index(row[0])].append(row[2].split('|')[0])
+								self.evSubtype[self.docs.index(row[0])].append(row[2].split('|')[1])
+							else:
+								self.docs.append(row[0])
+								self.triggers.append([row[1]])
+								self.evType.append([row[2].split('|')[0]])
+								self.evSubtype.append([row[2].split('|')[1]])
 
 		print("Reading Docs complete")
 
@@ -59,7 +66,8 @@ class processed_data:
 		from Load_Embedings import Embeddings
 		model_generator = Embeddings()
 
-		doc_vec, embeddings, trig_vec, maxLen, POS_labels, _ = model_generator.GoogleVecs_POS_triggerVecs(self.docs, self.triggers)
+		#doc_vec, embeddings, trig_vec, maxLen, POS_labels, _ = model_generator.GoogleVecs_POS_triggerVecs(self.docs, self.triggers)
+		doc_vec, embeddings, trig_vec, maxLen, POS_labels, _ = model_generator.GoogleVecs_POS_triggerVecs_merged(self.docs, self.triggers)
 		del model_generator
 
 		print("Document & Trigger modelling complete")
