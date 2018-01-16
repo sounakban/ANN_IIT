@@ -56,9 +56,9 @@ print("Shape, total embd: ", np.shape(embed_layer))
 seq = Bidirectional(LSTM(256, return_sequences=True), merge_mode='concat')(embed_layer)
 seq = Dropout(0.5)(seq)
 mlp = TimeDistributed(Dense(2, activation='softmax'))(seq)
-net = Model(inputs=[word_inp, POS_inp], outputs=mlp)
+model = Model(inputs=[word_inp, POS_inp], outputs=mlp)
 optimizer = Adam(lr=0.001)
-net.compile(optimizer=optimizer, loss='categorical_crossentropy')
+model.compile(optimizer=optimizer, loss='categorical_crossentropy')
 
 testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
