@@ -72,7 +72,7 @@ model.fit([trainX, POS_vectors], trainY, epochs=3, validation_split=0.1, verbose
 #print( model.evaluate(testX, testY) )
 predictions = model.predict([testX, test_POS_vectors])
 #predictions = prob2Onehot(predictions)
-#print("Predictions : ", list(predictions[10]))
+print("Predictions : ", list(predictions[10]))
 
 
 ##Calculate F1 Score
