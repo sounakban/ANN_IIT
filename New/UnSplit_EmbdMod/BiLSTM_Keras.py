@@ -38,9 +38,9 @@ print("Shape after padding : ", trainY.shape)
 tot = 0
 for a in trainY:
     for b in a:
-        if list(b) == [1,0]:
+        if list(b) == [1,0,0] or list(b) == [0,1,0]:
             tot += 1
-print("Totall positive results : ", tot)
+print("Total positive results : ", tot)
 
 # Defining the Network
 print("Beginning neural network")
