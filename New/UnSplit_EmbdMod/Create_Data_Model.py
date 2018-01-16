@@ -45,7 +45,8 @@ def tagMatrix2Embeddings(tag_Matrix, embd_size=50):
 		raise ValueError("\'tag_Matrix\' should be of type, \'list of lists\'")
 
 	import itertools
-	all_tags = list(set(itertools.chain.from_iterable(tag_Matrix)))
+	all_tags = ["."] #Pad label
+	all_tags.extend(list(set(itertools.chain.from_iterable(tag_Matrix))))
 
 	max_temp = 0
 	tag_vectors = []
@@ -56,11 +57,10 @@ def tagMatrix2Embeddings(tag_Matrix, embd_size=50):
 		tag_vectors.append(tag_temp)
 		if max_temp < len(tag_temp):
 			max_temp = len(tag_temp)
-	print("Tag lens : ", max_temp)
+	print("Tag len : ", max_temp)
 
 	import numpy as np
 	tag_emdeddings = np.random.uniform(size = (len(all_tags), embd_size) )
-	tag_vectors = np.array(tag_vectors)
 
 	return (tag_vectors, tag_emdeddings, all_tags)
 

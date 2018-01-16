@@ -8,11 +8,11 @@ class Embeddings:
 		self.embedding_vocab = []
 		self.doc_vectors = []
 		self.embeddings = []
-		#To keep the 0th element an empty vector [to map the padded elements]
-		self.embeddings.append([0.]*len(list(self.google_vecs["hello"])))
+		#To keep the 0th element a random vector [to map the padded elements]
+		self.embeddings.append(list(np.random.uniform(size=300)))
 		self.POS_labels = []
 		#To keep the 0th element an empty vector [to map the padded elemnts]
-		self.POS_labels.append(["."])
+		#self.POS_labels.append(["."])
 		self.num_of_words = 1	#0 is reserved for unknown words
 		self.maxSize = 0
 
