@@ -11,7 +11,7 @@ import numpy as np
 
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Model
-from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge, Bidirectional, Add
+from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge, Bidirectional, Concatenate
 from keras.optimizers import Adam
 
 #Get data
@@ -45,7 +45,7 @@ POS_embed_layer = Embedding(len(POS_embeddings), len(POS_embeddings[0]), weights
 print("Shape, POS embd: ", np.shape(POS_embed_layer))
 
 ## Combine Embeddings
-embed_layer = Add()([word_embed_layer, POS_embed_layer])
+embed_layer = Concatenate(axis=-1)([word_embed_layer, POS_embed_layer])
 print("Shape, total embd: ", np.shape(embed_layer))
 
 ## Layer Operations
