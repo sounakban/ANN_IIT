@@ -21,9 +21,9 @@ class processed_data:
 						for row in content:
 							if len(row[1].split(' ')) > 1:
 								continue
-							docs.append(row[0])
-							triggers.append(row[1])
-							evType.append(row[2].split('|')[0])
+							self.docs.append(row[0])
+							self.triggers.append(row[1])
+							self.evType.append(row[2].split('|')[0])
 
 		print("Reading Docs complete")
 
@@ -37,6 +37,7 @@ class processed_data:
 
 		print("Document & Trigger modelling complete")
 		return (doc_vec, embeddings, trig_vec, maxLen, POS_labels)
+
 
 
 def tagMatrix2Embeddings(tag_Matrix, embd_size=50):
@@ -66,28 +67,29 @@ def tagMatrix2Embeddings(tag_Matrix, embd_size=50):
 
 ######################################## Deprecated Functions ########################################
 
+"""
 def labelMatrix2OneHot(label_Matrix):
-if not type(label_Matrix) == type([]):
-	raise ValueError("\'label_Matrix\' should be of type, \'list of lists\'")
+	if not type(label_Matrix) == type([]):
+		raise ValueError("\'label_Matrix\' should be of type, \'list of lists\'")
 
-import itertools
-all_labels = list(set(itertools.chain.from_iterable(label_Matrix)))
+	import itertools
+	all_labels = list(set(itertools.chain.from_iterable(label_Matrix)))
 
-label2Vactor_Map = {}
-size = len(all_labels)
-for i in range(size):
-	temp = [0]*size
-	temp[i] = 1
-	label2Vactor_Map[all_labels[i]] = temp
+	label2Vactor_Map = {}
+	size = len(all_labels)
+	for i in range(size):
+		temp = [0]*size
+		temp[i] = 1
+		label2Vactor_Map[all_labels[i]] = temp
 
-vector_Matrix = []
-for i in range(len(label_Matrix)):
-	temp = []
-	for j in range(len(label_Matrix[i])):
-		temp.append(label2Vactor_Map[label_Matrix[i][j]])
-	vector_Matrix.append(temp)
+	vector_Matrix = []
+	for i in range(len(label_Matrix)):
+		temp = []
+		for j in range(len(label_Matrix[i])):
+			temp.append(label2Vactor_Map[label_Matrix[i][j]])
+		vector_Matrix.append(temp)
 
-return (vector_Matrix, label2Vactor_Map)
+	return (vector_Matrix, label2Vactor_Map)
 
 
 def concat_3Dvectors(vecA, vecB):
@@ -115,3 +117,4 @@ def Flatten_3Dto2D(vec):
 	for i in range(len(vec)):
 		ret_vec.extend(vec[i])
 	return ret_vec
+"""
