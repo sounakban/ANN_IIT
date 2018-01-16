@@ -63,7 +63,7 @@ net.compile(optimizer=optimizer, loss='categorical_crossentropy')
 testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
 
-"""
+
 # Training
 model.fit(trainX, trainY, epochs=3, validation_split=0.1, verbose=2, batch_size=32, shuffle=True)
 #print( model.evaluate(testX, testY) )
@@ -72,7 +72,7 @@ predictions = prob2Onehot(predictions)
 #print("Predictions : ", list(predictions[10]))
 
 
-
+"""
 ##Calculate F1 Score
 tp = 0
 tn = 0
