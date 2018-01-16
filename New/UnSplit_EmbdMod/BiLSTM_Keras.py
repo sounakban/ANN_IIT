@@ -37,7 +37,8 @@ print("Beginning neural network")
 
 ## Defining vectors and embeddings
 word_inp = Input(shape=(maxLen,))
-word_embed_layer = Embedding(len(word_embeddings), len(word_embeddings[0]), input_length=maxLen).set_weights(word_embeddings)(word_inp)
+word_embed_layer = Embedding(len(word_embeddings), len(word_embeddings[0]), weights=[word_embeddings], input_length=maxLen)(word_inp)
+#word_embed_layer = Embedding(len(word_embeddings), len(word_embeddings[0]), input_length=maxLen).set_weights(word_embeddings)(word_inp)
 #word_embed_layer.set_weights(word_embeddings)
 print("Shape, word embd: ", np.shape(word_embed_layer))
 POS_inp = Input(shape=(maxLen,))
