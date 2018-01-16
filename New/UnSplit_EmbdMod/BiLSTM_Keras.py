@@ -24,7 +24,7 @@ print("TrainY : ", len(trainY))
 print("Word Embd : ", len(word_embeddings))
 print("POS labels: ", len(POS_labels))
 print("POS vecs: ", len(POS_vectors))
-print("POS Embd: ", len(POS_emdeddings))
+print("POS Embd: ", len(POS_embeddings))
 print("Max Len : ", maxLen)
 
 # Data preprocessing
