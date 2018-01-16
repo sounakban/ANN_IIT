@@ -62,13 +62,14 @@ optimizer = Adam(lr=0.001)
 model.compile(optimizer=optimizer, loss='categorical_crossentropy')
 
 testX = trainX[int(0.3*len(trainY)):]
+test_POS_vectors = POS_vectors[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
 
 
 # Training
 model.fit([trainX, POS_vectors], trainY, epochs=3, validation_split=0.1, verbose=2, batch_size=32, shuffle=True)
 #print( model.evaluate(testX, testY) )
-predictions = model.predict(testX)
+predictions = model.predict([testX, test_POS_vectors])
 predictions = prob2Onehot(predictions)
 #print("Predictions : ", list(predictions[10]))
 
