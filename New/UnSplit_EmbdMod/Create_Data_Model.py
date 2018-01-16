@@ -6,7 +6,7 @@ class processed_data:
 	def __init__(self, sourceDir=""):
 		sourceDir = "../../../Resources/ACE Corpus/fp2_apf_extracted/"
 		#For reading
-		self.read_Data(sourceDir)
+		self.read_Data_merged(sourceDir)
 
 	def read_Data(self, sourceDir=""):
 		import csv
@@ -67,7 +67,7 @@ class processed_data:
 		model_generator = Embeddings()
 
 		#doc_vec, embeddings, trig_vec, maxLen, POS_labels, _ = model_generator.GoogleVecs_POS_triggerVecs(self.docs, self.triggers)
-		doc_vec, embeddings, trig_vec, maxLen, POS_labels, _ = model_generator.GoogleVecs_POS_triggerVecs_merged(self.docs, self.triggers)
+		doc_vec, embeddings, trig_vec, maxLen, POS_labels, _ = model_generator.GoogleVecs_POS_triggerVecs(self.docs, self.triggers)
 		del model_generator
 
 		print("Document & Trigger modelling complete")
