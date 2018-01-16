@@ -12,6 +12,7 @@ import numpy as np
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Model
 from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge, Bidirectional, Concatenate
+from keras.layers.wrappers import TimeDistributed
 from keras.optimizers import Adam
 
 #Get data
