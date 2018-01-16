@@ -47,12 +47,16 @@ def tagMatrix2Embeddings(tag_Matrix, embd_size=50):
 	import itertools
 	all_tags = list(set(itertools.chain.from_iterable(tag_Matrix)))
 
+	max_temp = 0
 	tag_vectors = []
 	for doc in tag_Matrix:
 		tag_temp = []
 		for tag in doc:
 			tag_temp.append(all_tags.index(tag))
 		tag_vectors.append(tag_temp)
+		if max_temp < len(tag_temp):
+			max_temp = len(tag_temp):
+	print(len(max_temp))
 
 	import numpy as np
 	tag_emdeddings = np.random.uniform(size = (len(all_tags), embd_size) )
