@@ -24,8 +24,8 @@ print("TrainX : ", len(trainX))
 print("TrainY : ", len(trainY))
 print("Word Embd : ", len(word_embeddings))
 print("POS labels: ", len(POS_labels))
-print("POS vecs: ", len(POS_vectors))
-print("POS Embd: ", len(POS_embeddings))
+print("POS vecs: ", POS_vectors.shape))
+print("POS Embd: ", POS_embeddings.shape))
 print("Max Len : ", maxLen)
 
 # Data preprocessing
@@ -63,7 +63,7 @@ model.compile(optimizer=optimizer, loss='categorical_crossentropy')
 testX = trainX[int(0.3*len(trainY)):]
 testY = trainY[int(0.3*len(trainY)):]
 
-
+"""
 # Training
 model.fit([trainX, POS_vectors], trainY, epochs=3, validation_split=0.1, verbose=2, batch_size=32, shuffle=True)
 #print( model.evaluate(testX, testY) )
@@ -72,7 +72,7 @@ predictions = prob2Onehot(predictions)
 #print("Predictions : ", list(predictions[10]))
 
 
-"""
+
 ##Calculate F1 Score
 tp = 0
 tn = 0
