@@ -36,7 +36,7 @@ trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,1])
 print("Shape after padding : ", trainY.shape)
 
 tot = 0
-for a in trainX:
+for a in trainY:
     for b in a:
         if list(b) == [1,0]:
             tot += 1
