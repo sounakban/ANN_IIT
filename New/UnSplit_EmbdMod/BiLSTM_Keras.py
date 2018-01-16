@@ -70,27 +70,27 @@ testY = trainY[int(0.3*len(trainY)):]
 model.fit([trainX, POS_vectors], trainY, epochs=3, validation_split=0.1, verbose=2, batch_size=32, shuffle=True)
 #print( model.evaluate(testX, testY) )
 predictions = model.predict([testX, test_POS_vectors])
-predictions = prob2Onehot(predictions)
+#predictions = prob2Onehot(predictions)
 #print("Predictions : ", list(predictions[10]))
 
 
-"""
 ##Calculate F1 Score
 tp = 0
 tn = 0
 fp = 0
 fn = 0
 for i in range(predictions.shape[0]):
-    if list(testY[i]) == [1,0]:
-        if list(predictions[i]) == [1,0]:
-            tp += 1
+    for j in range(predictions.shape[1]):
+        if list(testY[i][j]) == [1,0]:
+            if list(predictions[i][j]) == [1,0]:
+                tp += 1
+            else:
+                fn += 1
         else:
-            fn += 1
-    else:
-        if list(predictions[i]) == [1,0]:
-            fp += 1
-        else:
-            tn += 1
+            if list(predictions[i][j]) == [1,0]:
+                fp += 1
+            else:
+                tn += 1
 
 
 print(predictions.shape)
@@ -107,4 +107,3 @@ f1 = 2*((pr*rec)/(pr+rec))
 print("Precision : ", pr)
 print("Recall : ", rec)
 print("F1 : ", f1)
-"""
