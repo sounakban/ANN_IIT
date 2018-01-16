@@ -4,10 +4,13 @@
 class processed_data:
 
 	def __init__(self, sourceDir=""):
+		sourceDir = "../../../Resources/ACE Corpus/fp2_apf_extracted/"
 		#For reading
+		self.read_Data(sourceDir)
+
+	def read_Data(self, sourceDir=""):
 		import csv
 		import os
-		sourceDir = "../../../Resources/ACE Corpus/fp2_apf_extracted/"
 
 		self.docs = []
 		self.triggers = []
@@ -26,6 +29,30 @@ class processed_data:
 							self.evType.append(row[2].split('|')[0])
 
 		print("Reading Docs complete")
+
+
+	def read_Data_merged(self, sourceDir=""):
+		import csv
+		import os
+
+		self.docs = []
+		self.triggers = []
+		self.evType = []
+
+		for path, subdirs, files in os.walk(sourceDir):
+			for name in files:
+				if name.endswith(".csv"):
+					with open(os.path.join(path, name)) as inFile:
+						content = csv.reader(inFile, delimiter = '\t')
+						for row in content:
+							if len(row[1].split(' ')) > 1:
+								continue
+							self.docs.append(row[0])
+							self.triggers.append(row[1])
+							self.evType.append(row[2].split('|')[0])
+
+		print("Reading Docs complete")
+
 
 
 	def get_Data_Embeddings(self):
