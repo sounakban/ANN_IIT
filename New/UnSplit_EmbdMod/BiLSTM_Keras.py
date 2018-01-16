@@ -4,7 +4,7 @@ import random
 random.seed(100)
 
 from Create_Data_Model import processed_data, tagMatrix2Embeddings
-from Other_Utils import prob2Onehot, pad_sequences_3D
+from Other_Utils import prob2Onehot3D, pad_sequences_3D
 data = processed_data()
 import tensorflow as tf
 import numpy as np
