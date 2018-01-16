@@ -12,12 +12,14 @@ def prob2Onehot(prob_dist):
 
 def prob2Onehot3D(prob_dist):
 	ret_vec = []
-	for elem in prob_dist:
-		for probs in elem:
+	for doc in prob_dist:
+		doc_vec = []
+		for probs in doc:
 			probs_list = list(probs)
 			temp = [0]*len(probs_list)
 			temp[probs_list.index(max(probs_list))] = 1
-			ret_vec.append(temp)
+			doc_vec.append(temp)
+		ret_vec.append(doc_vec)
 	return np.array(ret_vec)
 
 

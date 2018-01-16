@@ -71,7 +71,7 @@ testY = trainY[int(0.3*len(trainY)):]
 model.fit([trainX, POS_vectors], trainY, epochs=3, validation_split=0.1, verbose=2, batch_size=32, shuffle=True)
 #print( model.evaluate(testX, testY) )
 predictions = model.predict([testX, test_POS_vectors])
-#predictions = prob2Onehot(predictions)
+predictions = prob2Onehot3D(predictions)
 print("Predictions : ", list(predictions[10]))
 
 
