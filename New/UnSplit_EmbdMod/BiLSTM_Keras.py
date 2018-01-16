@@ -49,15 +49,15 @@ print("Shape, POS embd: ", np.shape(POS_embed_layer))
 
 ## Combine Embeddings
 embed_layer = Concatenate(axis=-1)([word_embed_layer, POS_embed_layer])
-print("Shape, total embd: ", np.shape(embed_layer))
-
+print("Shape, total embd: ", np.shape(embed_layer)[-1])
+"""
 ## Layer Operations
 #print(net.get_shape().as_list())
 #seq = Bidirectional(LSTM(256, dropout=0.5, recurrent_dropout=0.2, return_sequences=True), merge_mode='concat')(embed_layer)
 seq = Bidirectional(LSTM(256, dropout=0.5, return_sequences=True), merge_mode='concat')(embed_layer)
 #seq = Bidirectional(LSTM(256, return_sequences=True), merge_mode='concat')(embed_layer)
 #seq = Dropout(0.5)(seq)
-mlp = TimeDistributed(Dense(2, activation='softmax'))(seq)
+mlp = TimeDistributed(Dense(2, activation='softmax', input_shape=(69, 16)))(seq)
 model = Model(inputs=[word_inp, POS_inp], outputs=mlp)
 optimizer = Adam(lr=0.001)
 model.compile(optimizer=optimizer, loss='categorical_crossentropy')
