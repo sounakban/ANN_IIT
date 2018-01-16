@@ -94,4 +94,4 @@ class Embeddings:
 
 		del self.google_vecs
 
-		return (self.doc_vectors, self.embeddings, trig_vectors, self.maxSize, self.POS_labels, self.embedding_vocab)
+		return (self.doc_vectors, np.array(self.embeddings), trig_vectors, self.maxSize, self.POS_labels, self.embedding_vocab)
