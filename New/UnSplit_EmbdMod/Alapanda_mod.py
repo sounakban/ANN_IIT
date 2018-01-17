@@ -1,7 +1,7 @@
 
 ################################### My Part ###################################
 
-
+from __future__ import print_function
 import tensorflow as tf
 tf.set_random_seed(100)
 import random
@@ -34,7 +34,6 @@ testY = trainY[int(0.3*len(trainY)):]
 
 ################################### Alapanda Part ###################################
 
-from __future__ import print_function
 import numpy as np
 import keras
 from keras.preprocessing import sequence
