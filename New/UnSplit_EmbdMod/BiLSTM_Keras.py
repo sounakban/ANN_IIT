@@ -63,7 +63,8 @@ print("Shape, total embd: ", np.shape(embed_layer))
 
 ## Layer Operations
 #print(net.get_shape().as_list())
-seq = Bidirectional(LSTM(512, dropout=0.8, recurrent_dropout=0.6, return_sequences=True), merge_mode='concat')(embed_layer)
+seq = Bidirectional(LSTM(512, dropout=0.5, recurrent_dropout=0.2, return_sequences=True), merge_mode='concat')(embed_layer)
+print("Shape of Bi-LSTM output : ", np.shape(seq))
 #seq = Bidirectional(LSTM(256, dropout=0.5, return_sequences=True), merge_mode='concat')(embed_layer)
 #seq = Bidirectional(LSTM(256, return_sequences=True), merge_mode='concat')(embed_layer)
 #seq = Dropout(0.5)(seq)
