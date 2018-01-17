@@ -65,7 +65,8 @@ seq = Bidirectional(LSTM(256, dropout=0.5, recurrent_dropout=0.2, return_sequenc
 #seq = Dropout(0.5)(seq)
 softmax_input_len = np.shape(seq)[-1]
 print("Shape of input sequence : ", softmax_input_len)
-mlp = TimeDistributed(Dense(3, activation='softmax', input_shape=(39, softmax_input_len)))(seq)
+#mlp = TimeDistributed(Dense(3, activation='softmax', input_shape=(39, softmax_input_len)))(seq)
+mlp = TimeDistributed(Dense(3, activation='softmax'))(seq)
 model = Model(inputs=[word_inp, POS_inp], outputs=mlp)
 optimizer = Adam(lr=0.001)
 model.compile(optimizer=optimizer, loss='categorical_crossentropy')
