@@ -54,7 +54,8 @@ POS_embed_layer = Embedding(len(POS_embeddings), len(POS_embeddings[0]), weights
 print("Shape, POS embd: ", np.shape(POS_embed_layer))
 
 ## Combine Embeddings
-embed_layer = Concatenate(axis=-1)([word_embed_layer, POS_embed_layer])
+#embed_layer = Concatenate(axis=-1)([word_embed_layer, POS_embed_layer])
+embed_layer = word_embed_layer
 print("Shape, total embd: ", np.shape(embed_layer))
 
 ## Layer Operations
@@ -63,9 +64,7 @@ seq = Bidirectional(LSTM(256, dropout=0.5, recurrent_dropout=0.2, return_sequenc
 #seq = Bidirectional(LSTM(256, dropout=0.5, return_sequences=True), merge_mode='concat')(embed_layer)
 #seq = Bidirectional(LSTM(256, return_sequences=True), merge_mode='concat')(embed_layer)
 #seq = Dropout(0.5)(seq)
-softmax_input_len = np.shape(seq)[-1]
-print("Shape of input sequence : ", softmax_input_len)
-#mlp = TimeDistributed(Dense(3, activation='softmax', input_shape=(39, softmax_input_len)))(seq)
+seq = Concatenate(axis=-1)([seq, POS_embed_layer])
 mlp = TimeDistributed(Dense(3, activation='softmax'))(seq)
 model = Model(inputs=[word_inp, POS_inp], outputs=mlp)
 optimizer = Adam(lr=0.001)
