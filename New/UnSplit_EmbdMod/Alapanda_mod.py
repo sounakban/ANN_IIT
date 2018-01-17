@@ -55,7 +55,7 @@ from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge
 #     i+=1
 # print(max_sentence_length)
 
-, weights=[word_embeddings]
+
 # x_train=sequence.pad_sequences(train_x, maxlen=max_sentence_length, padding='post', value=len_vocab)
 # y_train=sequence.pad_sequences(train_y, maxlen=max_sentence_length, padding='post', value=0)
 # test_x=word_based_train_file_fire_2017.x_test_index
