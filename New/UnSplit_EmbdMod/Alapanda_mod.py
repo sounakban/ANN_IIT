@@ -55,7 +55,7 @@ from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge
 #     i+=1
 # print(max_sentence_length)
 
-
+, weights=[word_embeddings]
 # x_train=sequence.pad_sequences(train_x, maxlen=max_sentence_length, padding='post', value=len_vocab)
 # y_train=sequence.pad_sequences(train_y, maxlen=max_sentence_length, padding='post', value=0)
 # test_x=word_based_train_file_fire_2017.x_test_index
@@ -72,17 +72,18 @@ from keras.layers import Dense, Dropout, Embedding, LSTM, Input, merge
 #     i+=1
 
 
-max_features = len_vocab+1#vocab size
+max_features = len_vocab#vocab size
 batch_size = 40#batch size
 maxlen = max_sentence_length#max tweet_characterized length
 hidden=60#size of hidden layer
 nb_classes=3
 filter_sizes=[2,3,4]
 num_filters=30
+embd_len=len(word_embeddings[0])
 
 
 sequence = Input(shape=(maxlen,), dtype='int32')
-embedded = Embedding(max_features, 50, input_length=maxlen)(sequence)
+embedded = Embedding(max_features, embd_len, input_length=maxlen, weights=[word_embeddings])(sequence)
 print(np.shape(embedded))
 embedded1= keras.layers.convolutional.Conv1D(filters=30, kernel_size=[3], strides=1, padding='same')(embedded)
 print(np.shape(embedded1))
