@@ -1,13 +1,12 @@
 ###### This module will perform trigger detection #######
 
-import random
-random.seed(100)
+import tensorflow as tf
+import numpy as np
+np.random.seed(100)
 
 from Create_Data_Model import processed_data, tagMatrix2Embeddings
 from Other_Utils import prob2Onehot3D, pad_sequences_3D
 data = processed_data()
-import tensorflow as tf
-import numpy as np
 
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Model

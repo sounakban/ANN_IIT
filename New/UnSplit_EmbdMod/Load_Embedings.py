@@ -103,8 +103,8 @@ class Embeddings:
 		from nltk.tokenize import RegexpTokenizer
 		tokenizer = RegexpTokenizer(r'\w+')
 		from nltk.corpus import stopwords
-		#stop_words = set(stopwords.words('english'))
-		stop_words = set([])
+		stop_words = set(stopwords.words('english'))
+		#stop_words = set([])
 		from nltk.stem import WordNetLemmatizer
 		wordnet_lemmatizer = WordNetLemmatizer()
 		from nltk import pos_tag
@@ -119,7 +119,7 @@ class Embeddings:
 			triggers = [tokenizer.tokenize(trig) for trig in triggers]
 			temp = []
 			for trig in triggers:
-				temp.append([wordnet_lemmatizer.lemmatize(x) for x in trig])
+				temp.append([wordnet_lemmatizer.lemmatize(x) for x in trig if not x in stop_words])
 			triggers = temp
 			if len(trig) == 1 and trig[0] in stop_words:
 				continue
