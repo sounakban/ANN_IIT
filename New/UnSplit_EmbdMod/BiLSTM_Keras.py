@@ -35,7 +35,6 @@ print("Max Len : ", maxLen)
 trainX = pad_sequences(trainX, maxlen=maxLen, value=0)
 POS_vectors = pad_sequences(POS_vectors, maxlen=maxLen, value=0)
 trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,0,1])
-print("Shape after padding : ", trainY.shape)
 
 tot = 0
 for a in trainY:
@@ -72,7 +71,7 @@ seq = Concatenate(axis=-1)([seq, POS_embed_layer])
 mlp = TimeDistributed(Dense(3, activation='softmax'))(seq)
 model = Model(inputs=[word_inp, POS_inp], outputs=mlp)
 optimizer = Adam(lr=0.001)
-model.compile(optimizer=optimizer, loss='categorical_crossentropy')
+model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=["accuracy"])
 
 testX = trainX[int(0.3*len(trainY)):]
 test_POS_vectors = POS_vectors[int(0.3*len(trainY)):]
@@ -81,7 +80,6 @@ testY = trainY[int(0.3*len(trainY)):]
 
 # Training
 model.fit([trainX, POS_vectors], trainY, epochs=5, validation_split=0.2, verbose=2, batch_size=32, shuffle=True)
-#print( model.evaluate(testX, testY) )
 predictions = model.predict([testX, test_POS_vectors])
 predictions = prob2Onehot3D(predictions)
 print("Predictions : ", list(predictions[10]))
