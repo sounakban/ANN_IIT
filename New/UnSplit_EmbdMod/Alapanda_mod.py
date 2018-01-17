@@ -23,7 +23,7 @@ del data
 
 x_train = pad_sequences(trainX, maxlen=max_sentence_length, value=0)
 #POS_vectors = pad_sequences(POS_vectors, maxlen=maxLen, value=0)
-y_train = pad_sequences_3D(trainY, maxlen=max_sentence_length, value=[0,0,1])
+y_train_hot = pad_sequences_3D(trainY, maxlen=max_sentence_length, value=[0,0,1])
 
 x_test = trainX[int(0.3*len(trainY)):]
 #test_POS_vectors = POS_vectors[int(0.3*len(trainY)):]
