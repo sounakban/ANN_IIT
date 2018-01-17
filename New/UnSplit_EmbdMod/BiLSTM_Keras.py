@@ -1,6 +1,8 @@
 ###### This module will perform trigger detection #######
 
 import tensorflow as tf
+import random
+random.seed(100)
 import numpy as np
 np.random.seed(100)
 
