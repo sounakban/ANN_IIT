@@ -64,6 +64,7 @@ seq = Bidirectional(LSTM(256, dropout=0.5, recurrent_dropout=0.2, return_sequenc
 #seq = Bidirectional(LSTM(256, return_sequences=True), merge_mode='concat')(embed_layer)
 #seq = Dropout(0.5)(seq)
 embedding_len = np.shape(embed_layer)[-1]
+print("Shape of input sequence : ", np.shape(seq))
 mlp = TimeDistributed(Dense(3, activation='softmax', input_shape=(69, embedding_len)))(seq)
 model = Model(inputs=[word_inp, POS_inp], outputs=mlp)
 optimizer = Adam(lr=0.001)
