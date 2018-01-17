@@ -101,7 +101,7 @@ print(np.shape(output))
 model = Model(input=sequence, output=output)
 model.compile('adam', 'categorical_crossentropy', metrics=['accuracy'])
 y_train_hot=np.array(y_train_hot)
-model.fit(x_train, y_train_hot,batch_size=batch_size,epochs=40,validation_split=0.2)
+model.fit(x_train, y_train_hot,batch_size=batch_size,epochs=15,validation_split=0.2)
 y_pred=model.predict(x_test)
 
 
