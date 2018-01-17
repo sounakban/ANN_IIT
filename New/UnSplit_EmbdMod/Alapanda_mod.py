@@ -9,6 +9,7 @@ random.seed(100)
 import numpy as np
 np.random.seed(100)
 
+from keras.preprocessing.sequence import pad_sequences
 from Create_Data_Model import processed_data, tagMatrix2Embeddings
 from Other_Utils import prob2Onehot3D, pad_sequences_3D
 data = processed_data()
