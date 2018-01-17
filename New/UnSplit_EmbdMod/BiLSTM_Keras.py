@@ -1,6 +1,7 @@
 ###### This module will perform trigger detection #######
 
 import tensorflow as tf
+tf.set_random_seed(100)
 import random
 random.seed(100)
 import numpy as np
@@ -78,7 +79,7 @@ testY = trainY[int(0.3*len(trainY)):]
 
 
 # Training
-model.fit([trainX, POS_vectors], trainY, epochs=10, validation_split=0.1, verbose=2, batch_size=32, shuffle=False)
+model.fit([trainX, POS_vectors], trainY, epochs=10, validation_split=0.1, verbose=2, batch_size=32, shuffle=True)
 #print( model.evaluate(testX, testY) )
 predictions = model.predict([testX, test_POS_vectors])
 predictions = prob2Onehot3D(predictions)
