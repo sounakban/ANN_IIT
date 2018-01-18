@@ -78,6 +78,7 @@ seq = Dropout(0.5)(seq)
 seq = Concatenate(axis=-1)([seq, POS_embed_layer])
 mlp = seq
 # mlp = TimeDistributed(Dense(512, activation='relu'))(mlp)
+# mlp = Dropout(0.5)(mlp)
 mlp = TimeDistributed(Dense(256, activation='relu'))(mlp)
 mlp = Dropout(0.5)(mlp)
 mlp = TimeDistributed(Dense(64, activation='tanh'))(mlp)
