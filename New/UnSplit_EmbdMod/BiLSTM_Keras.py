@@ -68,8 +68,8 @@ print("Shape, total embd: ", np.shape(embed_layer))
 # print("Shape of Bi-LSTM output : ", np.shape(seq))
 
 
-forwards = LSTM(256, return_sequences=True, activation='tanh')(embed_layer)
-backwards = LSTM(256, return_sequences=True, go_backwards=True, activation='tanh')(embed_layer)
+forwards = LSTM(512, return_sequences=True, activation='tanh')(embed_layer)
+backwards = LSTM(512, return_sequences=True, go_backwards=True, activation='tanh')(embed_layer)
 seq = Concatenate(axis=-1)([forwards, backwards])
 
 
