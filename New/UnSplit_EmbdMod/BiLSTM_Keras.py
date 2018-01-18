@@ -68,8 +68,8 @@ print("Shape, total embd: ", np.shape(embed_layer))
 # print("Shape of Bi-LSTM output : ", np.shape(seq))
 
 
-forwards = LSTM(60, return_sequences=True, activation='tanh')(embed_layer)
-backwards = LSTM(60, return_sequences=True, go_backwards=True, activation='tanh')(embed_layer)
+forwards = LSTM(256, return_sequences=True, activation='tanh')(embed_layer)
+backwards = LSTM(256, return_sequences=True, go_backwards=True, activation='tanh')(embed_layer)
 seq = Concatenate(axis=-1)([forwards, backwards])
 
 
@@ -87,7 +87,7 @@ testY = trainY[int(0.3*len(trainY)):]
 
 
 # Training
-model.fit([trainX, POS_vectors], trainY, epochs=15, validation_split=0.2, batch_size=32, shuffle=True)
+model.fit([trainX, POS_vectors], trainY, epochs=20, validation_split=0.2, batch_size=32, shuffle=True)
 predictions = model.predict([testX, test_POS_vectors])
 predictions = prob2Onehot3D(predictions)
 print("Predictions : ", list(predictions[10]))
