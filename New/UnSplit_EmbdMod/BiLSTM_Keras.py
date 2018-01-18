@@ -64,13 +64,13 @@ print("Shape, total embd: ", np.shape(embed_layer))
 # print(net.get_shape().as_list())
 # seq = Bidirectional(LSTM(256, dropout=0.5, recurrent_dropout=0.2, return_sequences=True), merge_mode='concat')(embed_layer)
 # seq = Bidirectional(LSTM(256, dropout=0.5, return_sequences=True), merge_mode='concat')(embed_layer)
-seq = Bidirectional(LSTM(512, return_sequences=True, activation='tanh'), merge_mode='concat')(embed_layer)
+#seq = Bidirectional(LSTM(64, return_sequences=True, activation='tanh'), merge_mode='concat')(embed_layer)
 # print("Shape of Bi-LSTM output : ", np.shape(seq))
 
 
-# forwards = LSTM(256, return_sequences=True, activation='tanh')(embed_layer)
-# backwards = LSTM(256, return_sequences=True, go_backwards=True, activation='tanh')(embed_layer)
-# seq = Concatenate(axis=-1)([forwards, backwards])
+forwards = LSTM(64, return_sequences=True, activation='tanh')(embed_layer)
+backwards = LSTM(64, return_sequences=True, go_backwards=True, activation='tanh')(embed_layer)
+seq = Concatenate(axis=-1)([forwards, backwards])
 
 
 print(np.shape(seq))
