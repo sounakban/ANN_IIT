@@ -71,7 +71,7 @@ print("Shape, total embd: ", np.shape(embed_layer))
 forwards = LSTM(256, return_sequences=True)(embed_layer)
 backwards = LSTM(256, return_sequences=True, go_backwards=True)(embed_layer)
 seq = Concatenate(axis=-1)([forwards, backwards])
-# print(np.shape(merged))
+print(np.shape(merged))
 
 
 seq = Dropout(0.5)(seq)
