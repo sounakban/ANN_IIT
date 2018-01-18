@@ -68,16 +68,16 @@ print("Shape, total embd: ", np.shape(embed_layer))
 # print("Shape of Bi-LSTM output : ", np.shape(seq))
 
 
-forwards = LSTM(128, return_sequences=True, activation='tanh')(embed_layer)
-backwards = LSTM(128, return_sequences=True, go_backwards=True, activation='tanh')(embed_layer)
+forwards = LSTM(256, return_sequences=True, activation='tanh')(embed_layer)
+backwards = LSTM(256, return_sequences=True, go_backwards=True, activation='tanh')(embed_layer)
 seq = Concatenate(axis=-1)([forwards, backwards])
 
 
 print(np.shape(seq))
 seq = Dropout(0.5)(seq)
 seq = Concatenate(axis=-1)([seq, POS_embed_layer])
-mlp = TimeDistributed(Dense(128, activation='softmax'))(seq)
-mlp = TimeDistributed(Dense(64, activation='softmax'))(seq)
+mlp = TimeDistributed(Dense(128, activation='relu'))(seq)
+mlp = TimeDistributed(Dense(64, activation='relu'))(seq)
 mlp = TimeDistributed(Dense(3, activation='softmax'))(seq)
 model = Model(inputs=[word_inp, POS_inp], outputs=mlp)
 optimizer = Adam(lr=0.001)
