@@ -75,10 +75,8 @@ seq = Concatenate(axis=-1)([forwards, backwards])
 
 print(np.shape(seq))
 seq = Dropout(0.5)(seq)
-# seq = Concatenate(axis=-1)([seq, POS_embed_layer])
+seq = Concatenate(axis=-1)([seq, POS_embed_layer])
 mlp = seq
-# mlp = TimeDistributed(Dense(256, activation='relu'))(mlp)
-# mlp = Dropout(0.1)(mlp)
 mlp = TimeDistributed(Dense(3, activation='softmax'))(mlp)
 model = Model(inputs=[word_inp, POS_inp], outputs=mlp)
 optimizer = Adam(lr=0.001)
