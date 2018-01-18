@@ -62,18 +62,18 @@ print("Shape, total embd: ", np.shape(embed_layer))
 
 ## Layer Operations
 # print(net.get_shape().as_list())
- seq = Bidirectional(LSTM(512, dropout=0.5, recurrent_dropout=0.2, return_sequences=True), merge_mode='concat')(embed_layer)
+# seq = Bidirectional(LSTM(256, dropout=0.5, recurrent_dropout=0.2, return_sequences=True), merge_mode='concat')(embed_layer)
 # seq = Bidirectional(LSTM(256, dropout=0.5, return_sequences=True), merge_mode='concat')(embed_layer)
 # seq = Bidirectional(LSTM(256, return_sequences=True), merge_mode='concat')(embed_layer)
 # print("Shape of Bi-LSTM output : ", np.shape(seq))
 
 
-# forwards = LSTM(256, return_sequences=True)(embed_layer)
-# backwards = LSTM(256, return_sequences=True, go_backwards=True)(embed_layer)
-# seq = Concatenate(axis=-1)([forwards, backwards])
-# print(np.shape(seq))
+forwards = LSTM(60, return_sequences=True, activation='tanh')(embed_layer)
+backwards = LSTM(60, return_sequences=True, go_backwards=True, activation='tanh')(embed_layer)
+seq = Concatenate(axis=-1)([forwards, backwards])
 
 
+print(np.shape(seq))
 seq = Dropout(0.5)(seq)
 seq = Concatenate(axis=-1)([seq, POS_embed_layer])
 mlp = TimeDistributed(Dense(3, activation='softmax'))(seq)
