@@ -42,37 +42,6 @@ from keras.models import Model
 from keras.layers import Dense, Dropout, Embedding, Conv1D, LSTM, Bidirectional, Input, merge, TimeDistributed, Concatenate
 
 
-# train_x=word_based_train_file_fire_2017.x_train_index
-# train_y=word_based_train_file_fire_2017.y_train
-# max_sentence_length=0
-# i=0
-# c=0
-# l=0
-# while i< len(train_x):
-#     l=len(train_x[i])
-#     if l> max_sentence_length:
-#         c=i
-#         max_sentence_length=l
-#     i+=1
-# print(max_sentence_length)
-
-
-# x_train=sequence.pad_sequences(train_x, maxlen=max_sentence_length, padding='post', value=len_vocab)
-# y_train=sequence.pad_sequences(train_y, maxlen=max_sentence_length, padding='post', value=0)
-# test_x=word_based_train_file_fire_2017.x_test_index
-# x_test=sequence.pad_sequences(test_x, maxlen=max_sentence_length, padding='post', value=len_vocab)
-# len(x_train[0])
-
-
-# y_train_hot=[]
-# i=0
-# while i< len(y_train):
-#     h=np.eye(2)[y_train[i]]
-#     h=h.tolist()
-#     y_train_hot.append(h)
-#     i+=1
-
-
 max_features = len_vocab#vocab size
 batch_size = 40     #batch size
 maxlen = max_sentence_length       #max tweet_characterized length

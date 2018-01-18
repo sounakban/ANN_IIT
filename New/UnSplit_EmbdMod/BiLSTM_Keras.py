@@ -22,13 +22,13 @@ trainX, word_embeddings, trainY, maxLen, POS_labels = data.get_Data_Embeddings()
 POS_vectors, POS_embeddings, _ = tagMatrix2Embeddings(POS_labels)
 del data
 
-print("TrainX : ", len(trainX))
-print("TrainY : ", len(trainY))
-print("Word Embd : ", len(word_embeddings))
-print("POS labels: ", len(POS_labels))
-print("POS vecs: ", len(POS_vectors))
-print("POS Embd: ", POS_embeddings.shape)
-print("Max Len : ", maxLen)
+# print("TrainX : ", len(trainX))
+# print("TrainY : ", len(trainY))
+# print("Word Embd : ", len(word_embeddings))
+# print("POS labels: ", len(POS_labels))
+# print("POS vecs: ", len(POS_vectors))
+# print("POS Embd: ", POS_embeddings.shape)
+# print("Max Len : ", maxLen)
 
 # Data preprocessing
 ## Sequence padding
@@ -36,12 +36,12 @@ trainX = pad_sequences(trainX, maxlen=maxLen, value=0)
 POS_vectors = pad_sequences(POS_vectors, maxlen=maxLen, value=0)
 trainY = pad_sequences_3D(trainY, maxlen=maxLen, value=[0,0,1])
 
-tot = 0
-for a in trainY:
-    for b in a:
-        if list(b) == [1,0,0] or list(b) == [0,1,0]:
-            tot += 1
-print("Total positive results : ", tot)
+# tot = 0
+# for a in trainY:
+#     for b in a:
+#         if list(b) == [1,0,0] or list(b) == [0,1,0]:
+#             tot += 1
+# print("Total positive results : ", tot)
 
 # Defining the Network
 print("Beginning neural network")
@@ -52,12 +52,12 @@ word_embed_layer = Embedding(len(word_embeddings), len(word_embeddings[0]), weig
 print("Shape, word embd: ", np.shape(word_embed_layer))
 POS_inp = Input(shape=(maxLen,))
 POS_embed_layer = Embedding(len(POS_embeddings), len(POS_embeddings[0]), weights=[POS_embeddings], input_length=maxLen)(POS_inp)
-#POS_embed_layer.set_weights(POS_embeddings)
+# POS_embed_layer.set_weights(POS_embeddings)
 print("Shape, POS embd: ", np.shape(POS_embed_layer))
 
 ## Combine Embeddings
-#embed_layer = Concatenate(axis=-1)([word_embed_layer, POS_embed_layer])
-embed_layer = word_embed_layer
+embed_layer = Concatenate(axis=-1)([word_embed_layer, POS_embed_layer])
+# embed_layer = word_embed_layer
 print("Shape, total embd: ", np.shape(embed_layer))
 
 ## Layer Operations
