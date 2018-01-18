@@ -39,7 +39,7 @@ import numpy as np
 import keras
 from keras.preprocessing import sequence
 from keras.models import Model
-from keras.layers import Dense, Dropout, Embedding, Conv1D, LSTM, Input, merge, TimeDistributed, Concatenate
+from keras.layers import Dense, Dropout, Embedding, Conv1D, LSTM, Bidirectional, Input, merge, TimeDistributed, Concatenate
 
 
 # train_x=word_based_train_file_fire_2017.x_train_index
@@ -74,13 +74,13 @@ from keras.layers import Dense, Dropout, Embedding, Conv1D, LSTM, Input, merge, 
 
 
 max_features = len_vocab#vocab size
-batch_size = 40#batch size
-maxlen = max_sentence_length#max tweet_characterized length
-hidden=60#size of hidden layer
-nb_classes=3
-filter_sizes=[2,3,4]
-num_filters=30
-embd_len=len(word_embeddings[0])
+batch_size = 40     #batch size
+maxlen = max_sentence_length       #max tweet_characterized length
+hidden = 60     #size of hidden layer
+nb_classes = 3
+#filter_sizes = [2,3,4]
+num_filters = 30
+embd_len = len(word_embeddings[0])
 
 
 sequence = Input(shape=(maxlen,), dtype='int32')
@@ -91,10 +91,11 @@ print(np.shape(embedded1))
 embedded2= Conv1D(filters=20, kernel_size=[4], strides=1, padding='same')(embedded1)
 embed3=TimeDistributed(embedded2)
 print(np.shape(embedded2))
-forwards = LSTM(hidden, return_sequences=True)(embedded2)
-backwards = LSTM(hidden, return_sequences=True, go_backwards=True)(embedded2)
-#merged = merge([forwards, backwards], mode='concat', concat_axis=-1)
-merged = Concatenate(axis=-1)([forwards, backwards])
+# forwards = LSTM(hidden, return_sequences=True)(embedded2)
+# backwards = LSTM(hidden, return_sequences=True, go_backwards=True)(embedded2)
+# merged = Concatenate(axis=-1)([forwards, backwards])
+# merged = Bidirectional(LSTM(hidden, dropout=0.5, recurrent_dropout=0.2, return_sequences=True), merge_mode='concat')(embedded2)
+merged = Bidirectional(LSTM(hidden, return_sequences=True), merge_mode='concat')(embedded2)
 print(np.shape(merged))
 after_dp = Dropout(0.5)(merged)
 output = TimeDistributed(Dense(nb_classes, activation='softmax'))(after_dp)
