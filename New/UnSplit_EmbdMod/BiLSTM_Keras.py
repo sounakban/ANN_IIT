@@ -80,7 +80,7 @@ mlp = seq
 # mlp = TimeDistributed(Dense(512, activation='relu'))(mlp)
 # mlp = Dropout(0.5)(mlp)
 mlp = TimeDistributed(Dense(256, activation='tanh'))(mlp)
-# mlp = Dropout(0.5)(mlp)
+mlp = Dropout(0.1)(mlp)
 # mlp = TimeDistributed(Dense(64, activation='relu'))(mlp)
 # mlp = Dropout(0.5)(mlp)
 mlp = TimeDistributed(Dense(3, activation='softmax'))(mlp)
