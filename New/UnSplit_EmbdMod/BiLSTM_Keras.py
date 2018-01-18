@@ -87,7 +87,7 @@ testY = trainY[int(0.3*len(trainY)):]
 
 
 # Training
-model.fit([trainX, POS_vectors], trainY, epochs=5, validation_split=0.2, batch_size=32, shuffle=True)
+model.fit([trainX, POS_vectors], trainY, epochs=15, validation_split=0.2, batch_size=32, shuffle=True)
 predictions = model.predict([testX, test_POS_vectors])
 predictions = prob2Onehot3D(predictions)
 print("Predictions : ", list(predictions[10]))
