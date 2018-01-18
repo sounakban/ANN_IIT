@@ -81,7 +81,7 @@ mlp = seq
 # mlp = Dropout(0.5)(mlp)
 mlp = TimeDistributed(Dense(256, activation='tanh'))(mlp)
 # mlp = Dropout(0.5)(mlp)
-mlp = TimeDistributed(Dense(64, activation='relu'))(mlp)
+# mlp = TimeDistributed(Dense(64, activation='relu'))(mlp)
 # mlp = Dropout(0.5)(mlp)
 mlp = TimeDistributed(Dense(3, activation='softmax'))(mlp)
 model = Model(inputs=[word_inp, POS_inp], outputs=mlp)
